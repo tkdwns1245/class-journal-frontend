@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import HeaderContainer from "./containers/common/HeaderContainer";
+import loadable from '@loadable/component';
+
+
+const MainPage = loadable(() => import('./pages/main/MainPage'));
+const RedPage = loadable(() => import('./pages/RedPage'));
+const BluePage = loadable(() => import('./pages/BluePage'));
+const LoginPage = loadable(() => import('./pages/auth/LoginPage'));
+const RegisterPage = loadable(() => import('./pages/auth/RegisterPage'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <HeaderContainer/>
+
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/red" element={<RedPage />} />
+        <Route path="/blue" element={<BluePage />} />
+      </Routes>
     </div>
   );
 }
