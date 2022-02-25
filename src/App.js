@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import "./Antd.less";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import HeaderContainer from "./containers/common/HeaderContainer";

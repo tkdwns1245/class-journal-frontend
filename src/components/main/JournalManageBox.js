@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Modal,Button } from 'antd';
 import palette from "../../lib/styles/palette";
 import { PlusOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.css';
-import {commonColor} from '../../modules/colorModule/commonColor.js';
+import {commonColor} from '../../lib/styles/commonColor.js';
 import JournalItem from './JournalItem.js';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -82,6 +81,19 @@ const ButtonContainer = styled.div`
 `;
 
 const JournalManageBox = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+      };
     const journalItems = [
         {
             _id:"aa",
@@ -89,7 +101,7 @@ const JournalManageBox = () => {
             grade: 5,
             classNum: 4,
             color: commonColor.journalGreen,
-            classMate: []
+            studentImageFiles: ['/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg']
         },
         {
             _id:"bb",
@@ -97,7 +109,7 @@ const JournalManageBox = () => {
             grade: 5,
             classNum: 4,
             color: commonColor.journalRed,
-            classMate: []
+            studentImageFiles: ['/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg']
         },
         {
             _id:"cc",
@@ -105,7 +117,7 @@ const JournalManageBox = () => {
             grade: 5,
             classNum: 4,
             color: commonColor.journalBlue,
-            classMate: []
+            studentImageFiles: ['/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg']
         }
     ]
   return ( 
@@ -114,7 +126,7 @@ const JournalManageBox = () => {
                 <h2 className="title">학급일지 추가</h2>
                 <p className="subTitle">매년 새로운 학급일지를 추가하여 관리해보세요.</p>
                 <ButtonContainer>
-                    <Button type="primary" shape="circle" icon={<PlusOutlined />} />
+                    <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={showModal}/>
                     <b className="journal-add-text">일지 추가</b>
                 </ButtonContainer>
             </AddJournalBoxBlock>
@@ -126,6 +138,11 @@ const JournalManageBox = () => {
                     ))}
                 </Carousel>
             </JournalListBoxBlock>
+            <Modal title="일지 추가" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+            </Modal>
         </JournalManageBoxBlock>
     );
 };

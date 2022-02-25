@@ -2,7 +2,7 @@ import React from "react";
 import styled,{css} from "styled-components";
 import palette from "../../lib/styles/palette";
 import {useNavigate} from 'react-router-dom';
-import {commonColor} from '../../modules/colorModule/commonColor.js'
+import {commonColor} from '../../lib/styles/commonColor.js'
 
 const StyledButton = styled.button`
     border: none;

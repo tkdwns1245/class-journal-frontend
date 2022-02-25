@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Responsive from './Responsive';
 import Button from './Button';
 import {Link} from 'react-router-dom';
-import {commonColor} from '../../modules/colorModule/commonColor.js';
+import {commonColor} from '../../lib/styles/commonColor.js';
 import palette from "../../lib/styles/palette";
 
 const HeaderBlock = styled.div`

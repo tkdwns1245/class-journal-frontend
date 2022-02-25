@@ -72,7 +72,7 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
-
+const lessRegex = /\.less$/;
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
     return false;
@@ -121,6 +121,7 @@ module.exports = function (webpackEnv) {
         loader: require.resolve('css-loader'),
         options: cssOptions,
       },
+      
       {
         // Options for PostCSS as we reference these options twice
         // Adds vendor prefixing based on your specified browser support in
@@ -345,6 +346,22 @@ module.exports = function (webpackEnv) {
           exclude: /@babel(?:\/|\\{1,2})runtime/,
           test: /\.(js|mjs|jsx|ts|tsx|css)$/,
           loader: require.resolve('source-map-loader'),
+          options: {
+
+            filterSourceMappingUrl: (url, resourcePath) => {
+                //  console.log({ url, resourcePath }) example:
+                // {
+                //  url: 'index.js.map',
+                //  resourcePath: '/repos/xlib-wsl/common/temp/node_modules/.pnpm/https-proxy-agent@5.0.0/node_modules/https-proxy-agent/dist/index.js'
+                // }
+
+                if (/.*\/node_modules\/.*/.test(resourcePath)) {
+                    return false
+                }
+                return true
+            }
+
+          }
         },
         {
           // "oneOf" will traverse all following loaders until one will
@@ -542,6 +559,24 @@ module.exports = function (webpackEnv) {
                 },
                 'sass-loader'
               ),
+            },
+            {
+              test: lessRegex,
+              use: [{
+                loader: 'style-loader',
+              }, {
+                loader: 'css-loader', // translates CSS into CommonJS
+              }, {
+                loader: 'less-loader', // compiles Less to CSS
+               options: {
+                 lessOptions: { // If you are using less-loader@5 please spread the lessOptions to options directly
+                   modifyVars: {
+                     'primary-color': '#1DA57A',
+                   },
+                   javascriptEnabled: true,
+                 },
+               },
+              }],
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
