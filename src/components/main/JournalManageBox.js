@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Modal,Button } from 'antd';
+import { Modal,Button,Form, Input } from 'antd';
 import palette from "../../lib/styles/palette";
 import { PlusOutlined } from '@ant-design/icons';
 import {commonColor} from '../../lib/styles/commonColor.js';
 import JournalItem from './JournalItem.js';
 import Carousel from "react-multi-carousel";
+import AddJournalModal from './AddJournalModal.js';
 import "react-multi-carousel/lib/styles.css";
 const carouselResponsive = {
     superLargeDesktop: {
@@ -138,11 +139,7 @@ const JournalManageBox = () => {
                     ))}
                 </Carousel>
             </JournalListBoxBlock>
-            <Modal title="일지 추가" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-            </Modal>
+            <AddJournalModal title="일지 추가" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}/>
         </JournalManageBoxBlock>
     );
 };
