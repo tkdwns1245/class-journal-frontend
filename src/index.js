@@ -8,18 +8,28 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
+import { createLogger } from "redux-logger";
 import rootReducer, { rootSaga } from "./modules";
 import { loadableReady } from "@loadable/component";
 import reactDom from "react-dom";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(
-  rootReducer,
-  window.__PRELOADED_STATE__,
-  applyMiddleware(thunk, sagaMiddleware)
-);
-
+const logger = createLogger('default');
+let store = '';
+if (process.env.NODE_ENV === 'development') {
+  store = createStore(
+    rootReducer,
+    window.__PRELOADED_STATE__,
+    composeWithDevTools(applyMiddleware(logger,thunk,sagaMiddleware))
+  );
+}else{
+  store = createStore(
+    rootReducer,
+    window.__PRELOADED_STATE__,
+    applyMiddleware(logger,thunk,sagaMiddleware)
+  );
+}
 sagaMiddleware.run(rootSaga);
 const Root = () => {
   return (

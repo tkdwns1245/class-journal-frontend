@@ -81,20 +81,8 @@ const ButtonContainer = styled.div`
     }
 `;
 
-const JournalManageBox = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-      };
+const JournalManageBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,error,journals}) => {
+    
     const journalItems = [
         {
             _id:"aa",
@@ -128,18 +116,18 @@ const JournalManageBox = () => {
                 <p className="subTitle">매년 새로운 학급일지를 추가하여 관리해보세요.</p>
                 <ButtonContainer>
                     <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={showModal}/>
-                    <b className="journal-add-text">일지 추가</b>
+                    <b className="journal-add-text" onClick={showModal}>일지 추가</b>
                 </ButtonContainer>
             </AddJournalBoxBlock>
             <JournalListBoxBlock>
                 <Carousel
                  responsive={carouselResponsive}>
-                    {journalItems.map((journalItem,index) => (
+                    {journalItems.map((journalItem) => (
                         <JournalItem journalItem={journalItem} key={journalItem._id}/>
                     ))}
                 </Carousel>
             </JournalListBoxBlock>
-            <AddJournalModal title="일지 추가" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}/>
+            <AddJournalModal title="일지 추가" visible={isModalVisible} onSubmit={onSubmit} onChange={onChange} onCancel={handleCancel} form={form} error={error}/>
         </JournalManageBoxBlock>
     );
 };
