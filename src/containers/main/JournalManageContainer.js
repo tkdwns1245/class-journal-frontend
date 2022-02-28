@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeField, initializeForm, register} from '../../modules/journal';
+import {changeField, initializeForm, register, listJournals} from '../../modules/journal';
 import { check } from '../../modules/user';
 import JournalManageBox from '../../components/main/JournalManageBox';
 
@@ -8,10 +8,12 @@ const JournalManageContainer = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
-    const {form, journals, journalError} = useSelector(({journal}) => ({
+    const {form, journals, journalError,listJournalsLoading,registerLoading} = useSelector(({journal,loading}) => ({
         form: journal.register,
         journals: journal.journals,
-        journalError: journal.journalError
+        journalError: journal.journalError,
+        listJournalsLoading: loading['journal/LIST_JOURNALS'],
+        registerLoading: loading['journal/REGISTER']
     }));
     const showModal = () => {
         dispatch(initializeForm('register'));
@@ -71,10 +73,10 @@ const JournalManageContainer = () => {
             return;
         }
         
-        if(journals) {
-            dispatch(check());
-        }
     }, [journals, journalError,dispatch]);
+    useEffect(() => {
+        dispatch(listJournals());
+    }, [dispatch]);
     return (
         <JournalManageBox
             form={form}
@@ -84,6 +86,8 @@ const JournalManageContainer = () => {
             onChange={onChange}
             onSubmit={onSubmit}
             error={error}
+            listJournalsLoading={listJournalsLoading}
+            registerLoading={registerLoading}
             journals={journals}
         />
     )

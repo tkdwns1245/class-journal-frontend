@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ImageBox from "../common/ImageBox";
 import { Image } from 'antd';
 import palette from "../../lib/styles/palette";
-
+import {commonColor} from '../../lib/styles/commonColor.js';
 const JournalItemBlock = styled.div`
     position: relative;
     width:220px;
@@ -49,10 +49,10 @@ const StudentImageBoxBlock = styled(ImageBox)`
 
 const JournalItem = ({journalItem}) => { 
   return ( 
-        <JournalItemBlock color={journalItem.color}>
+        <JournalItemBlock color={commonColor[journalItem.themeColor]}>
             <h2 className="title">학급일지</h2>
             <h2 className="school">{journalItem.schoolName}</h2>
-            <h2 className="class">{journalItem.grade}학년 {journalItem.classNumber}반</h2>
+            <h2 className="class">{journalItem.gradeNum}학년 {journalItem.classroomNum}반</h2>
             <ClassMateBoxBlock >
                 {journalItem.studentImageFiles.map((imageFiles,index) => (
                     <StudentImageBoxBlock key={index} index={index}>

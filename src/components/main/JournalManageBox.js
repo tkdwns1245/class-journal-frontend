@@ -81,34 +81,9 @@ const ButtonContainer = styled.div`
     }
 `;
 
-const JournalManageBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,error,journals}) => {
+const JournalManageBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,error,listJournalsLoading,registerLoading,journals}) => {
     
-    const journalItems = [
-        {
-            _id:"aa",
-            schoolName: "여고초등학교",
-            grade: 5,
-            classNum: 4,
-            color: commonColor.journalGreen,
-            studentImageFiles: ['/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg']
-        },
-        {
-            _id:"bb",
-            schoolName: "여고초등학교",
-            grade: 5,
-            classNum: 4,
-            color: commonColor.journalRed,
-            studentImageFiles: ['/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg']
-        },
-        {
-            _id:"cc",
-            schoolName: "여고초등학교",
-            grade: 5,
-            classNum: 4,
-            color: commonColor.journalBlue,
-            studentImageFiles: ['/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg','/uploads/image/testimg.jpg']
-        }
-    ]
+    const journalItems = journals
   return ( 
         <JournalManageBoxBlock>
             <AddJournalBoxBlock>
@@ -120,12 +95,14 @@ const JournalManageBox = ({form,isModalVisible,showModal,handleCancel,onChange,o
                 </ButtonContainer>
             </AddJournalBoxBlock>
             <JournalListBoxBlock>
-                <Carousel
-                 responsive={carouselResponsive}>
-                    {journalItems.map((journalItem) => (
-                        <JournalItem journalItem={journalItem} key={journalItem._id}/>
-                    ))}
-                </Carousel>
+                    {(listJournalsLoading || registerLoading) && journalItems && (
+                        <Carousel responsive={carouselResponsive} autoPlaySpeed={10000} infinite={true}>
+                        {journalItems.map((journalItem) => (
+                            <JournalItem journalItem={journalItem} key={journalItem._id}/>
+                        ))}
+                        </Carousel>
+                    )}
+                
             </JournalListBoxBlock>
             <AddJournalModal title="일지 추가" visible={isModalVisible} onSubmit={onSubmit} onChange={onChange} onCancel={handleCancel} form={form} error={error}/>
         </JournalManageBoxBlock>
