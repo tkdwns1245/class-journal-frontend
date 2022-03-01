@@ -18,7 +18,7 @@ const CalendarBoxBlock = styled.div`
 
 const TopButtonBoxBlock = styled.div`
     width: 100%;
-    height: 15%;
+    height: 70px;
     display:flex;
     padding:1rem;
     align-items: center;
@@ -30,9 +30,9 @@ const TopButtonBoxBlock = styled.div`
     }
 `
 
-const bottomCalendarBoxBlock = styled.div`
+const BottomCalendarBoxBlock = styled.div`
     width: 100%;
-    height: 85%;
+    height: auto;
     display:flex;
     align-items: center;
     background-color: ${commonColor.journalGreen};
@@ -42,22 +42,22 @@ const CalendarBox = () => {
     return(
         <CalendarBoxBlock>
             <TopButtonBoxBlock>
-                <div class="left">
+                <div className="left">
                     <Space>
                     <DashboardDatePicker picker="year" disabled/>
                     <DashboardDatePicker picker="month" />
                     </Space>
                 </div>
-                <div class="right">
+                <div className="right">
                 <DashboardButton>
                     <PlusOutlined />
-                    <span class="btn-text">행사추가</span>
+                    <span className="btn-text">행사추가</span>
                 </DashboardButton>
                 </div>
             </TopButtonBoxBlock>
-            <bottomCalendarBoxBlock>
+            <BottomCalendarBoxBlock>
                 <SchedularCalendar/>
-            </bottomCalendarBoxBlock>
+            </BottomCalendarBoxBlock>
         </CalendarBoxBlock>
     )
 }

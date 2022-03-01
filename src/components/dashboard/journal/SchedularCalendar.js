@@ -373,10 +373,6 @@ const data = [
             <Resources
             data={resources}
             />
-            <Toolbar
-            flexibleSpaceComponent={FlexibleSpace}
-            />
-            <DateNavigator />
             <EditRecurrenceMenu />
             <AppointmentTooltip
             showCloseButton
