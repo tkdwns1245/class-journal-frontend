@@ -68,7 +68,7 @@ const Header = ({user,onLogout}) => {
                     <Link to="/" className="menuItem">
                         Home
                     </Link>
-                    <Link to="/" className="menuItem">
+                    <Link to="/dashBoard/journal-calendar" className="menuItem">
                         Dashboard
                     </Link>
                     {user ? (

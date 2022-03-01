@@ -1,17 +1,17 @@
 import React from "react";
-import CommonTemplate from '../../components/common/CommonTemplate.js';
+import CommonTemplateContainer from '../../containers/common/CommonTemplateContainer.js';
 import TimeLineBox from '../../components/main/TimeLineBox.js';
 import JournalManageContainer from '../../containers/main/JournalManageContainer.js';
 import MainBox from '../../components/main/MainBox.js';
 
 const MainPage = () => {
   return (
-      <CommonTemplate>
+      <CommonTemplateContainer>
           <MainBox>
             <JournalManageContainer/>
             <TimeLineBox/>
           </MainBox>
-      </CommonTemplate>
+      </CommonTemplateContainer>
   );
 };
 

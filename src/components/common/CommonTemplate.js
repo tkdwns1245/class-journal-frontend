@@ -17,7 +17,7 @@ const CommonTemplateBlock = styled.div`
     align-items: center;
 `;
 
-const commonTemplate = ({children}) => {
+const CommonTemplate = ({children}) => {
   return ( 
         <CommonTemplateBlock>
             {children}
@@ -25,4 +25,4 @@ const commonTemplate = ({children}) => {
     );
 };
 
-export default commonTemplate;
+export default CommonTemplate;

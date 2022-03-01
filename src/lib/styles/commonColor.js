@@ -1,5 +1,6 @@
 import palette from "../../lib/styles/palette";
 export const commonColor = {
+    journalLightGreen: '#F7FEF6',
     journalRed : '#F9D3BD',
     journalGreen : '#CEE8CA',
     journalBlue : '#92C7E8',

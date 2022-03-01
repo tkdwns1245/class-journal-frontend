@@ -15,6 +15,7 @@ const AuthTemplateBlock = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index:1051;
 `;
 
 const WhiteBox = styled.div`
