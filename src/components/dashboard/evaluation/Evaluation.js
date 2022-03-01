@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {commonColor} from '../../../lib/styles/commonColor.js';
 import palette from '../../../lib/styles/palette';
 
-const JournalCalendarBlock = styled.div`
+const EvaluationBlock = styled.div`
     position: relative;
     display:flex;
     justify-content: row;
@@ -12,12 +12,12 @@ const JournalCalendarBlock = styled.div`
     height: 100%;
 `;
 
-const JournalCalendar = ({children}) => {
+const Evaluation = ({children}) => {
     return(
-        <JournalCalendarBlock>
+        <EvaluationBlock>
             {children}
-        </JournalCalendarBlock>
+        </EvaluationBlock>
     )
 }
 
-export default JournalCalendar;
+export default Evaluation;

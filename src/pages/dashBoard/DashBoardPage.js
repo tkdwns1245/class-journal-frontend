@@ -8,7 +8,10 @@ import SideMenu from '../../components/dashboard/common/SideMenu.js';
 import ContentBox from '../../components/dashboard/common/ContentBox.js';
 import JournalCalendar from '../../components/dashboard/journal/JournalCalendar.js';
 import { Route, Routes,Outlet } from "react-router-dom";
-
+import styled from 'styled-components';
+const Spacer = styled.div`
+    height: 4rem;
+`;
 const DashBoardPage = () => {
   return (
       <CommonTemplateContainer>
@@ -16,8 +19,9 @@ const DashBoardPage = () => {
               <SideMenu/>
               <ContentBox>
                 <Outlet/>
-            </ContentBox>
+              </ContentBox>
           </CommonBoardTemplate>
+          <Spacer/>
       </CommonTemplateContainer>
   );
 };

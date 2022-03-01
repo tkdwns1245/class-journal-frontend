@@ -14,12 +14,12 @@ const SideMenuBlock = styled.div`
 
 const Wrapper = styled.div`
     width:100%;
-    height: 30%;
+    height: 100%;
     margin-top: 120px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     .menuItem{
         margin-top: 10px;
         margin-left: 20px;
@@ -29,12 +29,12 @@ const Wrapper = styled.div`
         justify-content: center;
         width: 100%;
         height: 40px;
-        border-radius:18px 0px 0px 18px;
+        border-radius:15px 0px 0px 15px;
         &:hover {
             background-color: ${commonColor.journalLightGreen};
         }
         svg{
-            margin-left:-10px;
+            margin-left:-20px;
             margin-right:10px;
         }
     }
@@ -47,7 +47,7 @@ const SideMenu = () => {
                 <Link to="/dashBoard/journal-calendar" className="menuItem">
                     <FaCalendarAlt/> <span>학급일지</span>
                 </Link>
-                <Link to="/dashBoard/evaluate" className="menuItem">
+                <Link to="/dashBoard/evaluation" className="menuItem">
                     <FaBookReader/> <span>수행평가</span>
                 </Link>
                 <Link to="/dashBoard/user-setting" className="menuItem">
