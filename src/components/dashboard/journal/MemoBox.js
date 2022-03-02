@@ -5,7 +5,7 @@ import {commonColor} from '../../../lib/styles/commonColor.js';
 import { Button} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { Card } from 'antd';
+import MemoItem from './MemoItem.js';
 const MemoBoxBlock = styled.div`
     position: relative;
     width: 25%;
@@ -30,15 +30,18 @@ const TopButtonBoxBlock = styled.div`
 
 const BottomMemoBoxBlock = styled.div`
     width: 100%;
-    height: auto;
+    height: 640px;
     display:flex;
     align-items: center;
+    justify-content: center;
     background-color: ${commonColor.journalGreen};
     
 `
 const ButtonContainer = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
   .ant-btn-primary {
-    margin-top:30px;
     background: ${commonColor.journalDarkGreen};
     border: none;
     box-shadow: 7px 7px 10px ${commonColor.journalDarkGreen};
@@ -62,6 +65,12 @@ const ButtonContainer = styled.div`
 const MemoScrollBox = styled(Scrollbars)`
     height:100% !important;
     width: 100% !important;
+    & > div{
+        background:#F7FEF6;
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+    }
 `
 
 
@@ -71,36 +80,46 @@ const MemoBox = () => {
             <TopButtonBoxBlock>
                 <ButtonContainer>
                     <b className="journal-add-text" onClick>이달의 메모</b>
-                    <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick/>
+                    <Button type="primary" shape="circle" icon={<PlusOutlined />} />
                 </ButtonContainer>
             </TopButtonBoxBlock>
             <BottomMemoBoxBlock>
                 <MemoScrollBox>
-                <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
-                </Card>
-                <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
+                </MemoItem>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
-                </Card>
-                <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
+                </MemoItem>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
-                </Card>
-                <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
+                </MemoItem>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
-                </Card>
-                <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
+                </MemoItem>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
-                </Card>
+                </MemoItem>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+                </MemoItem>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+                </MemoItem>
                 </MemoScrollBox>
             </BottomMemoBoxBlock>
         </MemoBoxBlock>
