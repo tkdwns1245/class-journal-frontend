@@ -81,7 +81,18 @@ const ButtonContainer = styled.div`
     }
 `;
 
-const JournalManageBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,error,listJournalsLoading,registerLoading,journals}) => {
+const JournalManageBox = ({
+                            form,
+                            isModalVisible,
+                            showModal,
+                            handleCancel,
+                            onChange,
+                            onSubmit,
+                            error,
+                            listJournalsLoading,
+                            registerLoading,
+                            journals,
+                            onSelectJournal}) => {
     
     const journalItems = journals
   return ( 
@@ -98,7 +109,7 @@ const JournalManageBox = ({form,isModalVisible,showModal,handleCancel,onChange,o
                     {(listJournalsLoading || registerLoading) && journalItems && (
                         <Carousel responsive={carouselResponsive} autoPlaySpeed={10000} infinite={true}>
                         {journalItems.map((journalItem) => (
-                            <JournalItem journalItem={journalItem} key={journalItem._id}/>
+                            <JournalItem journalItem={journalItem} key={journalItem._id} onClick={() => onSelectJournal({journalItem})}/>
                         ))}
                         </Carousel>
                     )}

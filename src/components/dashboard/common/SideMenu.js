@@ -1,21 +1,34 @@
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {commonColor} from '../../../lib/styles/commonColor.js';
 import palette from "../../../lib/styles/palette";
 import { FaBookReader,FaCalendarAlt } from "react-icons/fa";
 import { UserSettings } from "grommet-icons";
+import { FaSchool } from "react-icons/fa";
 
 const SideMenuBlock = styled.div`
     position: relative;
     width: 15%;
     height: 100%;
 `;
-
+const SchoolName = styled.div`
+    margin-top: 50px;
+    color: #1DA57A;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    span{
+        color: #1DA57A;
+        margin-left:10px;
+    }
+`
 const Wrapper = styled.div`
     width:100%;
     height: 100%;
-    margin-top: 120px;
+    margin-top: 50px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -41,8 +54,14 @@ const Wrapper = styled.div`
 `;
 
 const SideMenu = () => {
+    const {selectedJournal} = useSelector(({journal}) => ({
+        selectedJournal: journal.selectedJournal
+    }));
     return(
         <SideMenuBlock>
+            <SchoolName>
+            <h2><FaSchool color="#1DA57A"/><span>{selectedJournal.schoolName}</span></h2>
+            </SchoolName>
             <Wrapper>
                 <Link to="/dashBoard/journal-calendar" className="menuItem">
                     <FaCalendarAlt/> <span>학급일지</span>

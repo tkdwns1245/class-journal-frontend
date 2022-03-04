@@ -1,22 +1,28 @@
 import React, {useEffect,useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeField, initializeForm, register, listJournals} from '../../modules/journal';
+import {changeField, initializeForm, register,selectJournal, listJournals} from '../../modules/journal';
 import { check } from '../../modules/user';
 import JournalManageBox from '../../components/main/JournalManageBox';
+import {Navigate, useNavigate} from 'react-router-dom';
 
 const JournalManageContainer = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const {form, journals, journalError,listJournalsLoading,registerLoading} = useSelector(({journal,loading}) => ({
-        form: journal.register,
+        form: journal.register.journal,
         journals: journal.journals,
         journalError: journal.journalError,
         listJournalsLoading: loading['journal/LIST_JOURNALS'],
         registerLoading: loading['journal/REGISTER']
     }));
     const showModal = () => {
-        dispatch(initializeForm('register'));
+        dispatch(initializeForm({
+            form: 'register',
+            type: 'journal'
+        }));
         setIsModalVisible(true);
     };
     const handleCancel = () => {
@@ -27,6 +33,7 @@ const JournalManageContainer = () => {
             dispatch(
                 changeField({
                     form: 'register',
+                    type: 'journal',
                     key: 'createDate',
                     value: e
                 })
@@ -36,6 +43,7 @@ const JournalManageContainer = () => {
             dispatch(
                 changeField({
                     form: 'register',
+                    type: 'journal',
                     key: name,
                     value : parseInt(value)
                 })
@@ -45,6 +53,7 @@ const JournalManageContainer = () => {
             dispatch(
                 changeField({
                     form: 'register',
+                    type: 'journal',
                     key: name,
                     value
                 })
@@ -62,6 +71,11 @@ const JournalManageContainer = () => {
         dispatch(register({schoolName,gradeNum,classroomNum,themeColor,createDate}));
         setIsModalVisible(false);
     };
+    
+    const onSelectJournal = ({journalItem}) =>{
+        navigate('/dashBoard/journal-calendar');
+        dispatch(selectJournal({journalItem}));
+    }
 
     useEffect(() => {
         if(journalError) {
@@ -89,6 +103,7 @@ const JournalManageContainer = () => {
             listJournalsLoading={listJournalsLoading}
             registerLoading={registerLoading}
             journals={journals}
+            onSelectJournal={onSelectJournal}
         />
     )
 }

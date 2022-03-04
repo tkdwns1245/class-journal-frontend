@@ -6,6 +6,7 @@ import palette from "../../lib/styles/palette";
 import {commonColor} from '../../lib/styles/commonColor.js';
 const JournalItemBlock = styled.div`
     position: relative;
+    cursor:pointer;
     width:220px;
     height:250px;
     padding: 1rem;
@@ -47,9 +48,9 @@ const StudentImageBoxBlock = styled(ImageBox)`
     }
 `
 
-const JournalItem = ({journalItem}) => { 
+const JournalItem = ({journalItem,onClick}) => { 
   return ( 
-        <JournalItemBlock color={commonColor[journalItem.themeColor]}>
+        <JournalItemBlock color={commonColor[journalItem.themeColor]} onClick={onClick}>
             <h2 className="title">학급일지</h2>
             <h2 className="school">{journalItem.schoolName}</h2>
             <h2 className="class">{journalItem.gradeNum}학년 {journalItem.classroomNum}반</h2>

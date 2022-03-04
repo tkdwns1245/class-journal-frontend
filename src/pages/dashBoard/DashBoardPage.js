@@ -1,9 +1,9 @@
 import React from "react";
 import CommonTemplateContainer from '../../containers/common/CommonTemplateContainer.js';
+import CommonBoardTemplateContainer from '../../containers/common/CommonBoardTemplateContainer.js';
 import TimeLineBox from '../../components/main/TimeLineBox.js';
 import JournalManageContainer from '../../containers/main/JournalManageContainer.js';
 import MainBox from '../../components/main/MainBox.js';
-import CommonBoardTemplate from '../../components/common/CommonBoardTemplate.js';
 import SideMenu from '../../components/dashboard/common/SideMenu.js';
 import ContentBox from '../../components/dashboard/common/ContentBox.js';
 import JournalCalendar from '../../components/dashboard/journal/JournalCalendar.js';
@@ -15,12 +15,12 @@ const Spacer = styled.div`
 const DashBoardPage = () => {
   return (
       <CommonTemplateContainer>
-          <CommonBoardTemplate>
+          <CommonBoardTemplateContainer>
               <SideMenu/>
               <ContentBox>
                 <Outlet/>
               </ContentBox>
-          </CommonBoardTemplate>
+          </CommonBoardTemplateContainer>
           <Spacer/>
       </CommonTemplateContainer>
   );

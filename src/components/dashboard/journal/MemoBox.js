@@ -6,6 +6,7 @@ import { Button} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 import MemoItem from './MemoItem.js';
+import AddMemoModal from './AddMemoModal.js';
 const MemoBoxBlock = styled.div`
     position: relative;
     width: 25%;
@@ -74,54 +75,32 @@ const MemoScrollBox = styled(Scrollbars)`
 `
 
 
-const MemoBox = () => {
+const MemoBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,error}) => {
     return(
         <MemoBoxBlock>
             <TopButtonBoxBlock>
                 <ButtonContainer>
-                    <b className="journal-add-text" onClick>이달의 메모</b>
-                    <Button type="primary" shape="circle" icon={<PlusOutlined />} />
+                    <b className="journal-add-text">이달의 메모</b>
+                    <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={showModal}/>
                 </ButtonContainer>
             </TopButtonBoxBlock>
             <BottomMemoBoxBlock>
                 <MemoScrollBox>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>}>
+                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>} onClick={() =>console.log("aa")}>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
                 </MemoItem>
                 </MemoScrollBox>
             </BottomMemoBoxBlock>
+            <AddMemoModal 
+                form={form} 
+                isModalVisible={isModalVisible} 
+                handleCancel={handleCancel}
+                onChange={onChange}
+                onSubmit={onSubmit}
+                error={error}
+            />
         </MemoBoxBlock>
     )
 }
