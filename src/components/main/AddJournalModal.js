@@ -15,7 +15,7 @@ const optionsWithDisabled = [
   { label: 'journalBlue', value: 'journalBlue'},
 ];
 
-const AddJournalModal = ({visible,onSubmit,onChange,onCancel,form,error}) => {
+const AddJournalModal = ({form,visible,onSubmit,onChange,onCancel,error}) => {
   return (
     <Modal title="일지 추가" visible={visible} onOk={onSubmit} onCancel={onCancel}>
         <Form name="complex-form" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
