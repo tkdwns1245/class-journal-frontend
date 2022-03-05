@@ -73,9 +73,7 @@ const MemoScrollBox = styled(Scrollbars)`
         flex-direction: column;
     }
 `
-
-
-const MemoBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,error}) => {
+const MemoBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,memos,listMemosLoading,memoRegisterLoading,error}) => {
     return(
         <MemoBoxBlock>
             <TopButtonBoxBlock>
@@ -86,11 +84,11 @@ const MemoBox = ({form,isModalVisible,showModal,handleCancel,onChange,onSubmit,e
             </TopButtonBoxBlock>
             <BottomMemoBoxBlock>
                 <MemoScrollBox>
-                <MemoItem size="small" title="Small size card" extra={<a href="#">More</a>} onClick={() =>console.log("aa")}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </MemoItem>
+                {(listMemosLoading || memoRegisterLoading) && memos && (
+                    memos.map((memoItem) => (
+                        <MemoItem memoItem={memoItem} key={memoItem._id}/>
+                    ))
+                )}
                 </MemoScrollBox>
             </BottomMemoBoxBlock>
             <AddMemoModal 

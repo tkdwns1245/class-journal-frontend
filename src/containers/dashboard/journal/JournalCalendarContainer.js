@@ -3,17 +3,20 @@ import {useDispatch, useSelector} from 'react-redux';
 import CalendarBox from '../../../components/dashboard/journal/CalendarBox.js';
 import JournalCalendar from '../../../components/dashboard/journal/JournalCalendar.js';
 import MemoBox from '../../../components/dashboard/journal/MemoBox.js';
-import {changeField, initializeForm, memoRegister,selectMonth} from '../../../modules/journal.js';
+import {changeField, initializeForm, memoRegister,selectMonth,listMemos} from '../../../modules/journal.js';
 
 const JournalCalendarContainer = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
-    const {form,selectedJournal,selectedMonth} = useSelector(({journal}) => ({
+    const {form,selectedJournal,selectedMonth,memos,listMemosLoading,memoRegisterLoading} = useSelector(({journal,loading}) => ({
         form: journal.register.memo,
         selectedJournal: journal.selectedJournal,
-        selectedMonth: journal.selectedMonth
+        selectedMonth: journal.selectedMonth,
+        memos: journal.memos,
+        listMemosLoading: loading['journal/LIST_MEMOS'],
+        memoRegisterLoading: loading['journal/MEMO_REGISTER']
     }));
 
     const showModal = () => {
@@ -58,6 +61,9 @@ const JournalCalendarContainer = () => {
         dispatch(memoRegister({title,content,selectedMonth,selectedJournal}));
         setIsModalVisible(false);
     };
+    useEffect(() => {
+        dispatch(listMemos({journal_id:selectedJournal._id,selectedMonth}));
+    }, [dispatch]);
 
     return (
         <JournalCalendar>
@@ -69,6 +75,9 @@ const JournalCalendarContainer = () => {
                 handleCancel={handleCancel}
                 onChange={onChange}
                 onSubmit={onSubmit}
+                memos={memos}
+                listMemosLoading={listMemosLoading}
+                memoRegisterLoading={memoRegisterLoading}
                 error={error}/>
         </JournalCalendar>
     )

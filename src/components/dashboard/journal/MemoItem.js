@@ -11,12 +11,10 @@ const MemoItemBlock = styled(Card)`
 `;
 
 
-const MemoItem = ({journalItem}) => { 
+const MemoItem = ({memoItem}) => { 
   return ( 
-        <MemoItemBlock size="small" title="Small size card" extra={<a href="#">More</a>}>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
+        <MemoItemBlock size="small" title={memoItem.title} extra={<a href="#">More</a>}>
+            {memoItem.content}
         </MemoItemBlock>
     );
 };

@@ -11,7 +11,7 @@ const INITIALIZE_FORM = 'journal/INITIALIZE_FORM';
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes('journal/REGISTER');
 const [MEMO_REGISTER, MEMO_REGISTER_SUCCESS, MEMO_REGISTER_FAILURE] = createRequestActionTypes('journal/MEMO_REGISTER');
 const [LIST_JOURNALS, LIST_JOURNALS_SUCCESS, LIST_JOURNALS_FAILURE] = createRequestActionTypes('journal/LIST_JOURNALS');
-const [LIST_MEMO, MEMO_SUCCESS, LIST_MEMO_FAILURE] = createRequestActionTypes('journal/LIST_MEMO');
+const [LIST_MEMOS, LIST_MEMOS_SUCCESS, LIST_MEMOS_FAILURE] = createRequestActionTypes('journal/LIST_MEMOS');
 
 export const changeField = createAction(
     CHANGE_FIELD,
@@ -54,14 +54,17 @@ export const memoRegister = createAction(MEMO_REGISTER, ({title,content,selected
     selectedJournal
 }));
 export const listJournals = createAction(LIST_JOURNALS, () => ({}));
+export const listMemos = createAction(LIST_MEMOS, ({journal_id,selectedMonth}) => ({journal_id,selectedMonth}));
 
 const registerSaga = createRequestSaga(REGISTER, journalAPI.register['journal']);
 const memoRegisterSaga = createRequestSaga(MEMO_REGISTER, journalAPI.register['memo']);
 const listJournalsSaga = createRequestSaga(LIST_JOURNALS, journalAPI.listJournals);
+const listMemosSaga = createRequestSaga(LIST_MEMOS, journalAPI.listMemos);
 export function* journalSaga() {
     yield takeLatest(REGISTER, registerSaga);
     yield takeLatest(MEMO_REGISTER, memoRegisterSaga);
     yield takeLatest(LIST_JOURNALS, listJournalsSaga);
+    yield takeLatest(LIST_MEMOS, listMemosSaga);
 }
 
 const initialState = {
@@ -85,6 +88,8 @@ const initialState = {
     selectedMonth: null,
     journals: null,
     journalError : null,
+    memos: null,
+    memoError : null,
 };
 
 const auth = handleActions(
@@ -118,6 +123,15 @@ const auth = handleActions(
     produce(state, draft => {
         draft['journalError'] = error;
     }),
+    [MEMO_REGISTER_SUCCESS] : (state, { payload: memos}) => 
+    produce(state, draft => {
+        draft['memos'] = memos;
+        draft['memoError'] = null;
+    }),
+    [MEMO_REGISTER_FAILURE] : (state, {payload: error}) => 
+    produce(state, draft => {
+        draft['memoError'] = error;
+    }),
     [LIST_JOURNALS_SUCCESS] : (state, { payload: journals}) => 
     produce(state, draft => {
         journals = journals.map(journalItem => {
@@ -129,6 +143,15 @@ const auth = handleActions(
     [LIST_JOURNALS_FAILURE] : (state, {payload: error}) => 
     produce(state, draft => {
         draft['journalError'] = error;
+    }),
+    [LIST_MEMOS_SUCCESS] : (state, { payload: memos}) => 
+    produce(state, draft => {
+        draft['memos'] = memos;
+        draft['memoError'] = null;
+    }),
+    [LIST_MEMOS_FAILURE] : (state, {payload: error}) => 
+    produce(state, draft => {
+        draft['memoError'] = error;
     }),
   },
   initialState

@@ -108,4 +108,4 @@ const JournalManageContainer = () => {
     )
 }
 
-export default JournalManageContainer;
+export default React.memo(JournalManageContainer);
