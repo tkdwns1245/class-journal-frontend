@@ -1,9 +1,9 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect,useState,useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeField, initializeForm, register,selectJournal, listJournals} from '../../modules/journal';
 import { check } from '../../modules/user';
 import JournalManageBox from '../../components/main/JournalManageBox';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate,useNavigate} from 'react-router-dom';
 
 const JournalManageContainer = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -72,10 +72,10 @@ const JournalManageContainer = () => {
         setIsModalVisible(false);
     };
     
-    const onSelectJournal = ({journalItem}) =>{
+    const onSelectJournal = useCallback(({journalItem}) =>{
         navigate('/dashBoard/journal-calendar');
         dispatch(selectJournal({journalItem}));
-    }
+    },[dispatch,navigate]);
 
     useEffect(() => {
         if(journalError) {
@@ -94,16 +94,16 @@ const JournalManageContainer = () => {
     return (
         <JournalManageBox
             form={form}
-            isModalVisible={isModalVisible}
-            showModal={showModal}
-            handleCancel={handleCancel}
+            visible={isModalVisible}
             onChange={onChange}
-            onSubmit={onSubmit}
-            error={error}
+            onCancel={handleCancel}
             listJournalsLoading={listJournalsLoading}
             registerLoading={registerLoading}
             journals={journals}
             onSelectJournal={onSelectJournal}
+            showModal={showModal}
+            error={error}
+            onSubmit={onSubmit}
         />
     )
 }

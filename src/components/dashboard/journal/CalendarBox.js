@@ -64,4 +64,4 @@ const CalendarBox = ({onChangeMonth,selectedJournal,selectedMonth}) => {
     )
 }
 
-export default CalendarBox;
+export default React.memo(CalendarBox);

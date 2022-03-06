@@ -19,4 +19,4 @@ const MemoItem = ({memoItem}) => {
     );
 };
 
-export default MemoItem;
+export default React.memo(MemoItem);

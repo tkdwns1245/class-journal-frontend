@@ -10,13 +10,16 @@ const JournalCalendarContainer = () => {
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
-    const {form,selectedJournal,selectedMonth,memos,listMemosLoading,memoRegisterLoading} = useSelector(({journal,loading}) => ({
+    const {form,memos,listMemosLoading,memoRegisterLoading} = useSelector(({journal,loading}) => ({
         form: journal.register.memo,
-        selectedJournal: journal.selectedJournal,
-        selectedMonth: journal.selectedMonth,
         memos: journal.memos,
         listMemosLoading: loading['journal/LIST_MEMOS'],
         memoRegisterLoading: loading['journal/MEMO_REGISTER']
+    }));
+
+    const {selectedJournal,selectedMonth} = useSelector(({journal}) => ({
+        selectedJournal: journal.selectedJournal,
+        selectedMonth: journal.selectedMonth
     }));
 
     const showModal = () => {
@@ -40,10 +43,10 @@ const JournalCalendarContainer = () => {
             })
         );
     };
-    const onChangeMonth = e => {
+    const onChangeMonth = useCallback( e => {
         const selectDate = new Date(e);
         dispatch(selectMonth({selectMonth:selectDate.getMonth() + 1}));
-    }
+    },[dispatch]);
 
     const onSubmit = e => {
         e.preventDefault();

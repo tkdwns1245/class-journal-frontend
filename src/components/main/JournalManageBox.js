@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback } from "react";
 import styled from "styled-components";
 import { Modal,Button,Form, Input } from 'antd';
 import palette from "../../lib/styles/palette";
@@ -83,18 +83,18 @@ const ButtonContainer = styled.div`
 
 const JournalManageBox = ({
                             form,
-                            isModalVisible,
-                            showModal,
-                            handleCancel,
+                            visible,
                             onChange,
-                            onSubmit,
-                            error,
+                            onCancel,
                             listJournalsLoading,
                             registerLoading,
                             journals,
-                            onSelectJournal}) => {
+                            onSelectJournal,
+                            showModal,
+                            error,
+                            onSubmit
+                        }) => {
     
-    const journalItems = journals
   return ( 
         <JournalManageBoxBlock>
             <AddJournalBoxBlock>
@@ -103,19 +103,25 @@ const JournalManageBox = ({
                 <ButtonContainer>
                     <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={showModal}/>
                     <b className="journal-add-text" onClick={showModal}>일지 추가</b>
+                    <AddJournalModal 
+                    form={form}
+                    visible={visible}
+                    onSubmit={onSubmit}
+                    onChange={onChange}
+                    onCancel={onCancel}
+                    error={error}/>
                 </ButtonContainer>
             </AddJournalBoxBlock>
             <JournalListBoxBlock>
-                    {(listJournalsLoading || registerLoading) && journalItems && (
+                    {(listJournalsLoading || registerLoading) && journals && (
                         <Carousel responsive={carouselResponsive} autoPlaySpeed={10000} infinite={true}>
-                        {journalItems.map((journalItem) => (
-                            <JournalItem journalItem={journalItem} key={journalItem._id} onClick={() => onSelectJournal({journalItem})}/>
+                        {journals.map((journalItem) => (
+                            <JournalItem journalItem={journalItem} key={journalItem._id} onSelectJournal={onSelectJournal}/>
                         ))}
                         </Carousel>
                     )}
                 
             </JournalListBoxBlock>
-            <AddJournalModal title="일지 추가" visible={isModalVisible} onSubmit={onSubmit} onChange={onChange} onCancel={handleCancel} form={form} error={error}/>
         </JournalManageBoxBlock>
     );
 };

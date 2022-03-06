@@ -48,9 +48,9 @@ const StudentImageBoxBlock = styled(ImageBox)`
     }
 `
 
-const JournalItem = ({journalItem,onClick}) => { 
+const JournalItem = ({journalItem,onSelectJournal}) => { 
   return ( 
-        <JournalItemBlock color={commonColor[journalItem.themeColor]} onClick={onClick}>
+        <JournalItemBlock color={commonColor[journalItem.themeColor]} onClick={() => onSelectJournal({journalItem})}>
             <h2 className="title">학급일지</h2>
             <h2 className="school">{journalItem.schoolName}</h2>
             <h2 className="class">{journalItem.gradeNum}학년 {journalItem.classroomNum}반</h2>
@@ -65,4 +65,4 @@ const JournalItem = ({journalItem,onClick}) => {
     );
 };
 
-export default JournalItem;
+export default React.memo(JournalItem);
