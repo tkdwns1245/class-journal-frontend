@@ -9,7 +9,8 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import EditMemoModal from "./EditMemoModal.js";
 import {useDispatch, useSelector} from 'react-redux';
-import {changeField, initializeForm,memoUpdate} from '../../../modules/journal';
+import {changeField, initializeForm,memoUpdate,memoDelete} from '../../../modules/journal';
+import AskModal from '../../../components/common/AskModal.js';
 const MemoItemBlock = styled.div`
     width: 90%;
     height:250px;
@@ -52,7 +53,8 @@ const MemoItemBlock = styled.div`
     }
 `;
 const DropdownMenu = ({memoItem}) =>{
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
@@ -71,10 +73,10 @@ const DropdownMenu = ({memoItem}) =>{
             type: 'memo',
             values: ItemValues
         }));
-        setIsModalVisible(true);
+        setIsEditModalVisible(true);
     };
     const handleCancel = () => {
-        setIsModalVisible(false);
+        setIsEditModalVisible(false);
       };
     const onChange = e => {
         const {value, name} = e.target;
@@ -95,7 +97,20 @@ const DropdownMenu = ({memoItem}) =>{
             return;
         }
         dispatch(memoUpdate({id,title,content}));
-        setIsModalVisible(false);
+        setIsEditModalVisible(false);
+    };
+
+    const onDeleteItem = () =>{
+        setIsDeleteModalVisible(true);
+    };
+
+    const onCancel = () => {
+        setIsDeleteModalVisible(false);
+    };
+
+    const onConfirm = () => {
+        dispatch(memoDelete({id:memoItem._id}));
+        setIsDeleteModalVisible(false);
     };
 
 
@@ -104,16 +119,22 @@ return (
       <Menu.Item className="editButton" key="1" icon={<BiEdit size="15"/>} onClick={showModal}>
         수정
       </Menu.Item>
-      <Menu.Item className="cancelButton" key="2" icon={<MdDelete size="15"/>}>
+      <Menu.Item className="cancelButton" key="2" icon={<MdDelete size="15"/>} onClick={onDeleteItem}>
         삭제
       </Menu.Item>
       <EditMemoModal
         form={form}
-        isModalVisible={isModalVisible}
+        isModalVisible={isEditModalVisible}
         handleCancel={handleCancel}
         onChange={onChange}
         onSubmit={onSubmit}
         error={error}/>
+      <AskModal
+        description={'정말로 삭제하시겠습니까?'}
+        visible={isDeleteModalVisible}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+        />
     </Menu>
   )
 };

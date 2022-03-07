@@ -14,6 +14,13 @@ export const update = {
                 client.patch(`/api/journal/memo/${id}`,{title,content}),
 }
 
+export const remove = {
+        // journal : ({schoolName,gradeNum,classroomNum,themeColor,createDate}) =>
+        //         client.patch('/api/journal/:id',{schoolName,gradeNum,classroomNum,themeColor,createDate}),
+        memo : ({id}) =>
+                client.delete(`/api/journal/memo/${id}`,{id}),
+}
+
 export const listJournals = ({}) =>
         client.get('/api/journal/list',{});
 export const listMemos = ({journal_id,selectedMonth}) => {
