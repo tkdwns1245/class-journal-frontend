@@ -15,7 +15,7 @@ const optionsWithDisabled = [
   { label: 'journalBlue', value: 'journalBlue'},
 ];
 
-const AddMemoModal = ({form,isModalVisible,handleCancel,onChange,onSubmit,error}) => {
+const EditMemoModal = ({form,isModalVisible,handleCancel,onChange,onSubmit,error}) => {
   const { TextArea } = Input;
   return (
     <Modal title="이달의 메모" visible={isModalVisible} onOk={onSubmit} onCancel={handleCancel}>
@@ -42,4 +42,4 @@ const AddMemoModal = ({form,isModalVisible,handleCancel,onChange,onSubmit,error}
     );
 };
 
-export default AddMemoModal;
+export default EditMemoModal;

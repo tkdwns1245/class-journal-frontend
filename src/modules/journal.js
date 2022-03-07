@@ -10,6 +10,7 @@ const INITIALIZE_FORM = 'journal/INITIALIZE_FORM';
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes('journal/REGISTER');
 const [MEMO_REGISTER, MEMO_REGISTER_SUCCESS, MEMO_REGISTER_FAILURE] = createRequestActionTypes('journal/MEMO_REGISTER');
+const [MEMO_UPDATE, MEMO_UPDATE_SUCCESS, MEMO_UPDATE_FAILURE] = createRequestActionTypes('journal/MEMO_UPDATE');
 const [LIST_JOURNALS, LIST_JOURNALS_SUCCESS, LIST_JOURNALS_FAILURE] = createRequestActionTypes('journal/LIST_JOURNALS');
 const [LIST_MEMOS, LIST_MEMOS_SUCCESS, LIST_MEMOS_FAILURE] = createRequestActionTypes('journal/LIST_MEMOS');
 
@@ -36,9 +37,10 @@ export const selectMonth = createAction(
     }),
 );
 
-export const initializeForm = createAction(INITIALIZE_FORM, ({form,type}) => ({
+export const initializeForm = createAction(INITIALIZE_FORM, ({form,type,values}) => ({
     form,
-    type
+    type,
+    values
 }));
 export const register = createAction(REGISTER, ({schoolName,gradeNum,classroomNum,themeColor,createDate}) => ({
     schoolName,
@@ -53,16 +55,25 @@ export const memoRegister = createAction(MEMO_REGISTER, ({title,content,selected
     selectedMonth,
     selectedJournal
 }));
+
+export const memoUpdate = createAction(MEMO_UPDATE, ({id,title,content}) => ({
+    id,
+    title,
+    content
+}));
 export const listJournals = createAction(LIST_JOURNALS, () => ({}));
 export const listMemos = createAction(LIST_MEMOS, ({journal_id,selectedMonth}) => ({journal_id,selectedMonth}));
 
 const registerSaga = createRequestSaga(REGISTER, journalAPI.register['journal']);
 const memoRegisterSaga = createRequestSaga(MEMO_REGISTER, journalAPI.register['memo']);
+const memoUpdateSaga = createRequestSaga(MEMO_UPDATE, journalAPI.update['memo']);
 const listJournalsSaga = createRequestSaga(LIST_JOURNALS, journalAPI.listJournals);
 const listMemosSaga = createRequestSaga(LIST_MEMOS, journalAPI.listMemos);
+
 export function* journalSaga() {
     yield takeLatest(REGISTER, registerSaga);
     yield takeLatest(MEMO_REGISTER, memoRegisterSaga);
+    yield takeLatest(MEMO_UPDATE, memoUpdateSaga);
     yield takeLatest(LIST_JOURNALS, listJournalsSaga);
     yield takeLatest(LIST_MEMOS, listMemosSaga);
 }
@@ -82,6 +93,20 @@ const initialState = {
             createDate:'',
             memoMonth: '',
             journal: '',
+        }
+    },
+    edit : {
+        journal : {
+            schoolName: '',
+            gradeNum: '',
+            classroomNum: '',
+            createDate:'',
+            themeColor:'',
+        },
+        memo : {
+            id: '',
+            title: '',
+            content: '',
         }
     },
     selectedJournal: null,
@@ -106,10 +131,17 @@ const auth = handleActions(
     produce(state, draft => {
         draft['selectedMonth'] = selectMonth;
     }),
-    [INITIALIZE_FORM] : (state, {payload: {form,type}}) => 
+    [INITIALIZE_FORM] : (state, {payload: {form,type,values}}) => 
     produce(state, draft => {
         draft[form][type] = initialState[form][type];
-        draft['journalError'] = null;
+        if (values !== undefined){
+            draft[form][type] = values;
+        }
+        if(type == 'journal')
+            draft['journalError'] = null;
+        else if(type == 'memo'){
+            draft['memoError'] = null;
+        }
     }),
     [REGISTER_SUCCESS] : (state, { payload: journals}) => 
     produce(state, draft => {
@@ -126,6 +158,18 @@ const auth = handleActions(
     [MEMO_REGISTER_SUCCESS] : (state, { payload: memos}) => 
     produce(state, draft => {
         draft['memos'] = memos;
+        draft['memoError'] = null;
+    }),
+    [MEMO_REGISTER_FAILURE] : (state, {payload: error}) => 
+    produce(state, draft => {
+        draft['memoError'] = error;
+    }),
+    [MEMO_UPDATE_SUCCESS] : (state, { payload: memo}) => 
+    produce(state, draft => {
+        const findedMemo = draft['memos'].find(memoItem => memoItem._id === memo._id);
+        console.log(findedMemo)
+        findedMemo.title = memo.title;
+        findedMemo.content = memo.content;
         draft['memoError'] = null;
     }),
     [MEMO_REGISTER_FAILURE] : (state, {payload: error}) => 
