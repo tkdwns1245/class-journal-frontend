@@ -13,6 +13,7 @@ const MainPage = loadable(() => import('./pages/main/MainPage'));
 const LoginPage = loadable(() => import('./pages/auth/LoginPage'));
 const RegisterPage = loadable(() => import('./pages/auth/RegisterPage'));
 const DashBoardPage = loadable(() => import('./pages/dashBoard/DashBoardPage'));
+const RedPage = loadable(() => import("./pages/RedPage"));
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <HeaderContainer/>
 
       <Routes>
+        <Route path="/red" element={<RedPage />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

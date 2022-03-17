@@ -26,8 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }else{
   store = createStore(
     rootReducer,
-    window.__PRELOADED_STATE__,
-    applyMiddleware(logger,thunk,sagaMiddleware)
+    applyMiddleware(thunk,sagaMiddleware)
   );
 }
 sagaMiddleware.run(rootSaga);

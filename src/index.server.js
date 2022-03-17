@@ -13,9 +13,11 @@ import rootReducer, { rootSaga } from "./modules";
 import PreloadContext from "./lib/PreloadContext";
 import { END } from "redux-saga";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
+import { ServerStyleSheet,StyleSheetManager } from 'styled-components'
+
 
 const statsFile = path.resolve("./build/loadable-stats.json");
-
+const sheet = new ServerStyleSheet()
 function createPage(root, tags) {
   return `<!DOCTYPE html>
   <html lang="en">
@@ -29,6 +31,7 @@ function createPage(root, tags) {
     <meta name="theme-color" content="#000000" />
     <title>React App</title>
     ${tags.styles}
+    ${tags.style}
     ${tags.links}
   </head>
   <body>
@@ -63,7 +66,9 @@ const serverRender = async (req, res, next) => {
       <PreloadContext.Provider value={preloadContext}>
         <Provider store={store}>
           <StaticRouter location={req.url} context={context}>
+          <StyleSheetManager sheet={sheet.instance}>
             <App />
+          </StyleSheetManager>
           </StaticRouter>
         </Provider>
       </PreloadContext.Provider>
@@ -80,14 +85,15 @@ const serverRender = async (req, res, next) => {
   }
   preloadContext.done = true;
   const root = ReactDOMServer.renderToString(jsx);
-
+  const styleTags = sheet.getStyleTags();
+  
   const stateString = JSON.stringify(store.getState()).replace(/</g, "\\u003c");
   const stateScript = `<script>__PRELOADED_STATE__ = ${stateString}</script>`;
-
   const tags = {
     scripts: stateScript + extractor.getScriptTags(),
     links: extractor.getLinkTags(),
     styles: extractor.getStyleTags(),
+    style: styleTags,
   };
   res.send(createPage(root, tags));
 };

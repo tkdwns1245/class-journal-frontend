@@ -1,0 +1,1 @@
+"use strict";exports.id=645,exports.ids=[645],exports.modules={952:(e,t,r)=>{r.r(t),r.d(t,{default:()=>u});var n=r(689),s=r.n(n);const d=function(){return s().createElement("div",{className:"Red"},"Red")},u=function(){return s().createElement(d,null)}}};
