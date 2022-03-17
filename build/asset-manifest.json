@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.512e8ab7.css",
+    "main.js": "/static/js/main.09b39b79.js",
+    "pages-main-MainPage.css": "/static/css/pages-main-MainPage.3817aa7b.chunk.css",
+    "pages-main-MainPage.js": "/static/js/pages-main-MainPage.99761611.chunk.js",
+    "pages-auth-LoginPage.js": "/static/js/pages-auth-LoginPage.9b70feb5.chunk.js",
+    "pages-auth-RegisterPage.js": "/static/js/pages-auth-RegisterPage.68295295.chunk.js",
+    "pages-dashBoard-DashBoardPage.css": "/static/css/pages-dashBoard-DashBoardPage.3817aa7b.chunk.css",
+    "pages-dashBoard-DashBoardPage.js": "/static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js",
+    "pages-RedPage.css": "/static/css/pages-RedPage.299dd451.chunk.css",
+    "pages-RedPage.js": "/static/js/pages-RedPage.cd3ee268.chunk.js",
+    "static/js/41.4d443f6a.chunk.js": "/static/js/41.4d443f6a.chunk.js",
+    "static/js/555.1272df1d.chunk.js": "/static/js/555.1272df1d.chunk.js",
+    "static/js/367.7edaf549.chunk.js": "/static/js/367.7edaf549.chunk.js",
+    "static/js/293.86c8f18b.chunk.js": "/static/js/293.86c8f18b.chunk.js",
+    "loadable-stats.json": "/loadable-stats.json",
+    "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/index.html",
+    "main.512e8ab7.css.map": "/static/css/main.512e8ab7.css.map",
+    "main.09b39b79.js.map": "/static/js/main.09b39b79.js.map",
+    "pages-main-MainPage.3817aa7b.chunk.css.map": "/static/css/pages-main-MainPage.3817aa7b.chunk.css.map",
+    "pages-main-MainPage.99761611.chunk.js.map": "/static/js/pages-main-MainPage.99761611.chunk.js.map",
+    "pages-auth-LoginPage.9b70feb5.chunk.js.map": "/static/js/pages-auth-LoginPage.9b70feb5.chunk.js.map",
+    "pages-auth-RegisterPage.68295295.chunk.js.map": "/static/js/pages-auth-RegisterPage.68295295.chunk.js.map",
+    "pages-dashBoard-DashBoardPage.3817aa7b.chunk.css.map": "/static/css/pages-dashBoard-DashBoardPage.3817aa7b.chunk.css.map",
+    "pages-dashBoard-DashBoardPage.c2c374fa.chunk.js.map": "/static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js.map",
+    "pages-RedPage.299dd451.chunk.css.map": "/static/css/pages-RedPage.299dd451.chunk.css.map",
+    "pages-RedPage.cd3ee268.chunk.js.map": "/static/js/pages-RedPage.cd3ee268.chunk.js.map",
+    "41.4d443f6a.chunk.js.map": "/static/js/41.4d443f6a.chunk.js.map",
+    "555.1272df1d.chunk.js.map": "/static/js/555.1272df1d.chunk.js.map",
+    "367.7edaf549.chunk.js.map": "/static/js/367.7edaf549.chunk.js.map",
+    "293.86c8f18b.chunk.js.map": "/static/js/293.86c8f18b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.512e8ab7.css",
+    "static/js/main.09b39b79.js"
+  ]
+}
