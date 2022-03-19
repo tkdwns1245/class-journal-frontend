@@ -1,25 +1,25 @@
 {
-  "hash": "92ad3ed01bf938631027",
+  "hash": "1b1fb5c4329c751b9f2b",
   "publicPath": "/",
   "outputPath": "C:\\work\\reactworkspace\\class-journal\\frontend-project\\build",
   "assetsByChunkName": {
     "main": [
       "static/css/main.512e8ab7.css",
-      "static/js/main.09b39b79.js"
+      "static/js/main.382bcc19.js"
     ],
     "pages-main-MainPage": [
       "static/css/pages-main-MainPage.3817aa7b.chunk.css",
-      "static/js/pages-main-MainPage.99761611.chunk.js"
+      "static/js/pages-main-MainPage.18a8ed83.chunk.js"
     ],
     "pages-auth-LoginPage": [
-      "static/js/pages-auth-LoginPage.9b70feb5.chunk.js"
+      "static/js/pages-auth-LoginPage.18a25eff.chunk.js"
     ],
     "pages-auth-RegisterPage": [
-      "static/js/pages-auth-RegisterPage.68295295.chunk.js"
+      "static/js/pages-auth-RegisterPage.f8257991.chunk.js"
     ],
     "pages-dashBoard-DashBoardPage": [
       "static/css/pages-dashBoard-DashBoardPage.3817aa7b.chunk.css",
-      "static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js"
+      "static/js/pages-dashBoard-DashBoardPage.93a5c157.chunk.js"
     ],
     "pages-RedPage": [
       "static/css/pages-RedPage.299dd451.chunk.css",
@@ -29,19 +29,19 @@
   "assets": [
     {
       "type": "asset",
-      "name": "static/js/main.09b39b79.js",
-      "size": 3592859,
+      "name": "static/js/main.382bcc19.js",
+      "size": 3626994,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "immutable": true,
-        "contenthash": "09b39b79",
+        "contenthash": "382bcc19",
         "javascriptModule": false,
         "minimized": true,
         "related": {
-          "license": "static/js/main.09b39b79.js.LICENSE.txt",
-          "sourceMap": "static/js/main.09b39b79.js.map"
+          "license": "static/js/main.382bcc19.js.LICENSE.txt",
+          "sourceMap": "static/js/main.382bcc19.js.map"
         }
       },
       "chunkNames": [
@@ -55,6 +55,52 @@
         179
       ],
       "auxiliaryChunks": []
+    },
+    {
+      "type": "asset",
+      "name": "static/media/bannerimg.c0c6a5b8fc63c8c65f8a.png",
+      "size": 89253,
+      "emitted": false,
+      "comparedForEmit": false,
+      "cached": true,
+      "info": {
+        "sourceFilename": "src/uploads/images/main/bannerimg.png",
+        "immutable": true,
+        "contenthash": "c0c6a5b8fc63c8c65f8a"
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [
+        "pages-main-MainPage"
+      ],
+      "auxiliaryChunkIdHints": [],
+      "chunks": [],
+      "auxiliaryChunks": [
+        465
+      ]
+    },
+    {
+      "type": "asset",
+      "name": "static/media/teacher.bb73d1655de7d67a4aa5.png",
+      "size": 60242,
+      "emitted": false,
+      "comparedForEmit": false,
+      "cached": true,
+      "info": {
+        "sourceFilename": "src/uploads/images/main/teacher.png",
+        "immutable": true,
+        "contenthash": "bb73d1655de7d67a4aa5"
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [
+        "pages-main-MainPage"
+      ],
+      "auxiliaryChunkIdHints": [],
+      "chunks": [],
+      "auxiliaryChunks": [
+        465
+      ]
     },
     {
       "type": "asset",
@@ -86,18 +132,18 @@
     },
     {
       "type": "asset",
-      "name": "static/js/293.86c8f18b.chunk.js",
-      "size": 13347,
+      "name": "static/js/293.3a907a08.chunk.js",
+      "size": 13221,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "immutable": true,
-        "contenthash": "86c8f18b",
+        "contenthash": "3a907a08",
         "javascriptModule": false,
         "minimized": true,
         "related": {
-          "sourceMap": "static/js/293.86c8f18b.chunk.js.map"
+          "sourceMap": "static/js/293.3a907a08.chunk.js.map"
         }
       },
       "chunkNames": [],
@@ -289,18 +335,18 @@
     },
     {
       "type": "asset",
-      "name": "static/js/pages-auth-RegisterPage.68295295.chunk.js",
-      "size": 4547,
+      "name": "static/js/pages-auth-RegisterPage.f8257991.chunk.js",
+      "size": 4550,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "immutable": true,
-        "contenthash": "68295295",
+        "contenthash": "f8257991",
         "javascriptModule": false,
         "minimized": true,
         "related": {
-          "sourceMap": "static/js/pages-auth-RegisterPage.68295295.chunk.js.map"
+          "sourceMap": "static/js/pages-auth-RegisterPage.f8257991.chunk.js.map"
         }
       },
       "chunkNames": [
@@ -317,18 +363,18 @@
     },
     {
       "type": "asset",
-      "name": "static/js/pages-auth-LoginPage.9b70feb5.chunk.js",
-      "size": 4114,
+      "name": "static/js/pages-auth-LoginPage.18a25eff.chunk.js",
+      "size": 4117,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "immutable": true,
-        "contenthash": "9b70feb5",
+        "contenthash": "18a25eff",
         "javascriptModule": false,
         "minimized": true,
         "related": {
-          "sourceMap": "static/js/pages-auth-LoginPage.9b70feb5.chunk.js.map"
+          "sourceMap": "static/js/pages-auth-LoginPage.18a25eff.chunk.js.map"
         }
       },
       "chunkNames": [
@@ -345,18 +391,18 @@
     },
     {
       "type": "asset",
-      "name": "static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js",
-      "size": 3527,
+      "name": "static/js/pages-dashBoard-DashBoardPage.93a5c157.chunk.js",
+      "size": 3667,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "immutable": true,
-        "contenthash": "c2c374fa",
+        "contenthash": "93a5c157",
         "javascriptModule": false,
         "minimized": true,
         "related": {
-          "sourceMap": "static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js.map"
+          "sourceMap": "static/js/pages-dashBoard-DashBoardPage.93a5c157.chunk.js.map"
         }
       },
       "chunkNames": [
@@ -389,6 +435,34 @@
       "auxiliaryChunks": [
         179
       ]
+    },
+    {
+      "type": "asset",
+      "name": "static/js/pages-main-MainPage.18a8ed83.chunk.js",
+      "size": 2391,
+      "emitted": false,
+      "comparedForEmit": false,
+      "cached": true,
+      "info": {
+        "immutable": true,
+        "contenthash": "18a8ed83",
+        "javascriptModule": false,
+        "minimized": true,
+        "related": {
+          "sourceMap": "static/js/pages-main-MainPage.18a8ed83.chunk.js.map"
+        }
+      },
+      "chunkNames": [
+        "pages-main-MainPage"
+      ],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "filteredRelated": 1,
+      "chunks": [
+        465
+      ],
+      "auxiliaryChunks": []
     },
     {
       "type": "asset",
@@ -430,34 +504,6 @@
       "auxiliaryChunkNames": [],
       "auxiliaryChunkIdHints": [],
       "chunks": [],
-      "auxiliaryChunks": []
-    },
-    {
-      "type": "asset",
-      "name": "static/js/pages-main-MainPage.99761611.chunk.js",
-      "size": 386,
-      "emitted": false,
-      "comparedForEmit": false,
-      "cached": true,
-      "info": {
-        "immutable": true,
-        "contenthash": "99761611",
-        "javascriptModule": false,
-        "minimized": true,
-        "related": {
-          "sourceMap": "static/js/pages-main-MainPage.99761611.chunk.js.map"
-        }
-      },
-      "chunkNames": [
-        "pages-main-MainPage"
-      ],
-      "chunkIdHints": [],
-      "auxiliaryChunkNames": [],
-      "auxiliaryChunkIdHints": [],
-      "filteredRelated": 1,
-      "chunks": [
-        465
-      ],
       "auxiliaryChunks": []
     },
     {
@@ -527,7 +573,7 @@
           "name": "static/css/main.512e8ab7.css"
         },
         {
-          "name": "static/js/main.09b39b79.js"
+          "name": "static/js/main.382bcc19.js"
         }
       ],
       "filteredAssets": 0,
@@ -549,18 +595,18 @@
           "name": "static/js/555.1272df1d.chunk.js"
         },
         {
-          "name": "static/js/293.86c8f18b.chunk.js"
+          "name": "static/js/293.3a907a08.chunk.js"
         },
         {
           "name": "static/css/pages-main-MainPage.3817aa7b.chunk.css"
         },
         {
-          "name": "static/js/pages-main-MainPage.99761611.chunk.js"
+          "name": "static/js/pages-main-MainPage.18a8ed83.chunk.js"
         }
       ],
       "filteredAssets": 0,
       "assetsSize": null,
-      "filteredAuxiliaryAssets": 7,
+      "filteredAuxiliaryAssets": 9,
       "auxiliaryAssetsSize": null,
       "children": {},
       "childAssets": {}
@@ -572,7 +618,7 @@
       ],
       "assets": [
         {
-          "name": "static/js/pages-auth-LoginPage.9b70feb5.chunk.js"
+          "name": "static/js/pages-auth-LoginPage.18a25eff.chunk.js"
         }
       ],
       "filteredAssets": 0,
@@ -589,7 +635,7 @@
       ],
       "assets": [
         {
-          "name": "static/js/pages-auth-RegisterPage.68295295.chunk.js"
+          "name": "static/js/pages-auth-RegisterPage.f8257991.chunk.js"
         }
       ],
       "filteredAssets": 0,
@@ -615,13 +661,13 @@
           "name": "static/js/367.7edaf549.chunk.js"
         },
         {
-          "name": "static/js/293.86c8f18b.chunk.js"
+          "name": "static/js/293.3a907a08.chunk.js"
         },
         {
           "name": "static/css/pages-dashBoard-DashBoardPage.3817aa7b.chunk.css"
         },
         {
-          "name": "static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js"
+          "name": "static/js/pages-dashBoard-DashBoardPage.93a5c157.chunk.js"
         }
       ],
       "filteredAssets": 0,
@@ -658,33 +704,33 @@
       "id": 179,
       "files": [
         "static/css/main.512e8ab7.css",
-        "static/js/main.09b39b79.js"
+        "static/js/main.382bcc19.js"
       ]
     },
     {
       "id": 465,
       "files": [
         "static/css/pages-main-MainPage.3817aa7b.chunk.css",
-        "static/js/pages-main-MainPage.99761611.chunk.js"
+        "static/js/pages-main-MainPage.18a8ed83.chunk.js"
       ]
     },
     {
       "id": 266,
       "files": [
-        "static/js/pages-auth-LoginPage.9b70feb5.chunk.js"
+        "static/js/pages-auth-LoginPage.18a25eff.chunk.js"
       ]
     },
     {
       "id": 595,
       "files": [
-        "static/js/pages-auth-RegisterPage.68295295.chunk.js"
+        "static/js/pages-auth-RegisterPage.f8257991.chunk.js"
       ]
     },
     {
       "id": 848,
       "files": [
         "static/css/pages-dashBoard-DashBoardPage.3817aa7b.chunk.css",
-        "static/js/pages-dashBoard-DashBoardPage.c2c374fa.chunk.js"
+        "static/js/pages-dashBoard-DashBoardPage.93a5c157.chunk.js"
       ]
     },
     {
@@ -715,7 +761,7 @@
     {
       "id": 293,
       "files": [
-        "static/js/293.86c8f18b.chunk.js"
+        "static/js/293.3a907a08.chunk.js"
       ]
     }
   ]
