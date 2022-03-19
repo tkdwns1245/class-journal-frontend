@@ -57,6 +57,7 @@ const SideMenu = () => {
     const {selectedJournal} = useSelector(({journal}) => ({
         selectedJournal: journal.selectedJournal
     }));
+    
     return(
         <SideMenuBlock>
             <SchoolName>

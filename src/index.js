@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }else{
   store = createStore(
     rootReducer,
-    applyMiddleware(thunk,sagaMiddleware)
+    composeWithDevTools(applyMiddleware(thunk,sagaMiddleware))
   );
 }
 sagaMiddleware.run(rootSaga);

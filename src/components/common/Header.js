@@ -68,9 +68,11 @@ const Header = ({user,onLogout}) => {
                     <Link to="/" className="menuItem">
                         Home
                     </Link>
+                    {user && (
                     <Link to="/dashBoard/journal-calendar" className="menuItem">
                         Dashboard
                     </Link>
+                    )}
                     {user ? (
                         <div className="right">
                             <UserInfo>{user.username}</UserInfo>
