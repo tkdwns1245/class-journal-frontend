@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import {
   styled, darken, alpha, lighten,
 } from '@mui/material/styles';
@@ -23,6 +23,21 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import ColorLens from '@mui/icons-material/ColorLens';
+import {Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,Button,TextField,Fab} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Notes from '@mui/icons-material/Notes';
+import Close from '@mui/icons-material/Close';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import Create from '@mui/icons-material/Create';
+
+const StyledFab = styled(Fab)(({ theme }) => ({
+  [`&.${classes.addButton}`]: {
+    position: 'absolute',
+    bottom: theme.spacing(3),
+    right: theme.spacing(4),
+  },
+}));
 
 const PREFIX = 'Demo';
 const owners = [
@@ -259,34 +274,54 @@ const FlexibleSpace = (({ ...restProps }) => (
   </StyledToolbarFlexibleSpace>
 ));
 
-const SchedularCalendar = () => {
-//   constructor(props) {
-//     super(props);
+const SchedularCalendar = ({
+  editModalVisible,
+  deleteModalVisible,
+  onToggleEditModal,
+  onToggleDeleteModal}
+  ) => {
+  const [isNewAppointment, setIsNewAppointment] = useState(false);
+  const [editingAppointment,setEditingAppointment] = useState(null);
+  const [previousAppointment,setPreviousAppointment] = useState(null);
+  const [addedAppointment, setAddedAppointment] = useState(null);
+  const onEditingAppointmentChange = (editingAppointment) =>{
+    setEditingAppointment(editingAppointment);
+  }
+  const onAddedAppointmentChange = (addedAppointment) =>{
+    setPreviousAppointment(editingAppointment);
+    setAddedAppointment(addedAppointment);
+    setEditingAppointment(undefined);
+    setIsNewAppointment(true);
+  }
+  const commitDeletedAppointment = () =>{
+    // this.setState((state) => {
+    //   const { data, deletedAppointmentId } = state;
+    //   const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
 
-//     this.state = {
-//       data: appointments,
-//     };
-
-//     this.commitChanges = this.commitChanges.bind(this);
-//   }
-
-//   const commitChanges ({ added, changed, deleted }) {
-//     this.setState((state) => {
-//       let { data } = state;
-//       if (added) {
-//         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-//         data = [...data, { id: startingAddedId, ...added }];
-//       }
-//       if (changed) {
-//         data = data.map(appointment => (
-//           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-//       }
-//       if (deleted !== undefined) {
-//         data = data.filter(appointment => appointment.id !== deleted);
-//       }
-//       return { data };
-//     });
-//   }
+    //   return { data: nextData, deletedAppointmentId: null };
+    // });
+    onToggleDeleteModal();
+  }
+  const today = new Date();
+  const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  const startDayHour = today.getHours();
+  const commitChanges = ({ added, changed, deleted }) =>{
+    this.setState((state) => {
+      let { data } = state;
+      if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [...data, { id: startingAddedId, ...added }];
+      }
+      if (changed) {
+        data = data.map(appointment => (
+          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+      }
+      if (deleted !== undefined) {
+        data = data.filter(appointment => appointment.id !== deleted);
+      }
+      return { data };
+    });
+  }
 const data = [
     {
       id: 0,
@@ -350,6 +385,7 @@ const data = [
       ownerId: 3,
     },
   ];
+
     return (
         <Paper>
         <Scheduler
@@ -359,7 +395,7 @@ const data = [
             // onCommitChanges={this.commitChanges}
             />
             <ViewState
-            defaultCurrentDate="2018-07-17"
+            defaultCurrentDate={currentDate}
             />
 
             <MonthView
@@ -379,9 +415,50 @@ const data = [
             showDeleteButton
             showOpenButton
             />
-            <AppointmentForm />
+            <AppointmentForm 
+            // overlayComponent={this.appointmentForm}
+            visible={editModalVisible}
+            onVisibilityChange={() => {onToggleEditModal();}}
+            />
             <DragDropProvider />
         </Scheduler>
+
+        <Dialog
+          open={deleteModalVisible}
+          // onClose={this.cancelDelete}
+        >
+          <DialogTitle>
+            Delete Appointment
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this appointment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() =>{onToggleDeleteModal()}} color="primary" variant="outlined">
+              Cancel
+            </Button>
+            <Button onClick={() => {commitDeletedAppointment()}} color="secondary" variant="outlined">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <StyledFab
+          color="secondary"
+          className={classes.addButton}
+          onClick={() => {
+            onToggleEditModal();
+            onEditingAppointmentChange(undefined);
+            onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </StyledFab>
         </Paper>
     );
 }

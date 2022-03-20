@@ -40,7 +40,15 @@ const BottomCalendarBoxBlock = styled.div`
     background-color: ${commonColor.journalGreen};
     
 `
-const CalendarBox = ({onChangeMonth,selectedJournal,selectedMonth}) => {
+const CalendarBox = ({
+    onChangeMonth,
+    selectedJournal,
+    selectedMonth,
+    isEditModalVisible,
+    isDeleteModalVisible,
+    toggleEditModal,
+    toggleDeleteModal,
+}) => {
     return(
         <CalendarBoxBlock>
             <TopButtonBoxBlock>
@@ -51,14 +59,19 @@ const CalendarBox = ({onChangeMonth,selectedJournal,selectedMonth}) => {
                     </Space>
                 </div>
                 <div className="right">
-                <DashboardButton>
+                <DashboardButton onClick={toggleEditModal}>
                     <PlusOutlined />
                     <span className="btn-text">행사추가</span>
                 </DashboardButton>
                 </div>
             </TopButtonBoxBlock>
             <BottomCalendarBoxBlock>
-                <SchedularCalendar/>
+                <SchedularCalendar
+                    editModalVisible={isEditModalVisible}
+                    deleteModalVisible={isDeleteModalVisible}
+                    onToggleEditModal={toggleEditModal}
+                    onToggleDeleteModal={toggleDeleteModal}
+                />
             </BottomCalendarBoxBlock>
         </CalendarBoxBlock>
     )
