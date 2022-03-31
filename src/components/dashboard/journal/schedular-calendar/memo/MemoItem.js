@@ -1,16 +1,15 @@
-import React, {useEffect,useState,useCallback} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { Card } from 'antd';
-import palette from '../../../lib/styles/palette';
-import {commonColor} from '../../../lib/styles/commonColor.js';
-import { Menu, Dropdown,message, Button,Space} from 'antd';
+import palette from '../../../../../lib/styles/palette';
+import {commonColor} from '../../../../../lib/styles/commonColor.js';
+import { Menu, Dropdown, Button,Space} from 'antd';
 import { IoMdSettings } from "react-icons/io";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import EditMemoModal from "./EditMemoModal.js";
 import {useDispatch, useSelector} from 'react-redux';
-import {changeField, initializeForm,memoUpdate,memoDelete} from '../../../modules/journal';
-import AskModal from '../../../components/common/AskModal.js';
+import {changeField, initializeForm,memoUpdate,memoDelete} from '../../../../../modules/journal';
+import AskModal from '../../../../common/AskModal.js';
 const MemoItemBlock = styled.div`
     width: 90%;
     height:250px;

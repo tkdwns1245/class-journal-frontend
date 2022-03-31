@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Modal,Space,Form, Input } from 'antd';
-import {commonColor} from '../../../lib/styles/commonColor.js';
+import { Modal,Form, Input } from 'antd';
 const ErrorMessage = styled.div`
     color: red;
     text-align: center;
@@ -15,7 +14,7 @@ const optionsWithDisabled = [
   { label: 'journalBlue', value: 'journalBlue'},
 ];
 
-const AddMemoModal = ({form,isModalVisible,handleCancel,onChange,onSubmit,error}) => {
+const EditMemoModal = ({form,isModalVisible,handleCancel,onChange,onSubmit,error}) => {
   const { TextArea } = Input;
   return (
     <Modal title="이달의 메모" visible={isModalVisible} onOk={onSubmit} onCancel={handleCancel}>
@@ -42,4 +41,4 @@ const AddMemoModal = ({form,isModalVisible,handleCancel,onChange,onSubmit,error}
     );
 };
 
-export default AddMemoModal;
+export default EditMemoModal;

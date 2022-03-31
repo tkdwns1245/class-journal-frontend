@@ -5,7 +5,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import HeaderContainer from "./containers/common/HeaderContainer";
 import loadable from '@loadable/component';
-import JournalCalendarContainer from './containers/dashboard/journal/JournalCalendarContainer.js';
 import EvaluationContainer from'./containers/dashboard/journal/EvaluationContainer.js';
 import Footer from './components/common/Footer';
 import {useSelector, useDispatch} from 'react-redux';
@@ -15,6 +14,7 @@ const MainPage = loadable(() => import('./pages/main/MainPage'));
 const LoginPage = loadable(() => import('./pages/auth/LoginPage'));
 const RegisterPage = loadable(() => import('./pages/auth/RegisterPage'));
 const DashBoardPage = loadable(() => import('./pages/dashBoard/DashBoardPage'));
+const CalendarDashboardPage = loadable(() => import('./pages/dashBoard/CalendarDashboardPage'))
 const RedPage = loadable(() => import("./pages/RedPage"));
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
                                   <ProtectedRoute>
                                     <DashBoardPage />
                                   </ProtectedRoute>} >
-          <Route path="journal-calendar" element={<JournalCalendarContainer/>} />
+          <Route path="journal-calendar" element={<CalendarDashboardPage/>} />
           <Route path="evaluation" element={<EvaluationContainer/>} />
         </Route>
       </Routes>
