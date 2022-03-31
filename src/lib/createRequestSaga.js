@@ -11,7 +11,7 @@ export const createRequestActionTypes = type => {
 export default function createRequestSaga(type, request) {
     const SUCCESS = `${type}_SUCCESS`;
     const FAILURE = `${type}_FAILURE`;
-
+    
     return function*(action) {
         yield put(startLoading(type));
         try{
@@ -20,10 +20,10 @@ export default function createRequestSaga(type, request) {
                 type: SUCCESS,
                 payload: response.data,
             });
-        } catch(e) {
+        } catch(err) {
             yield put({
                 type: FAILURE,
-                payload: e,
+                payload: err,
                 error: true,
             });
         }
