@@ -9,6 +9,8 @@ const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes('auth/REGISTER');
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes('auth/LOGIN');
 
+const LOGOUT = 'auth/LOGOUT';
+
 export const changeField = createAction(
     CHANGE_FIELD,
     ({form, key, value}) => ({
@@ -26,6 +28,7 @@ export const login = createAction(LOGIN, ({username,password}) => ({
     username,
     password,
 }));
+export const authInit = createAction(LOGOUT);
 
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
@@ -76,6 +79,10 @@ const auth = handleActions(
     [LOGIN_FAILURE] : (state, {payload: error}) => ({
         ...state,
         authError: error,
+    }),
+    [LOGOUT]: state => ({
+        ...state,
+        auth: null,
     }),
   },
   initialState
