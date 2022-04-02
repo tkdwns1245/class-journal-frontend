@@ -21,7 +21,7 @@ const AddJournalContainer = ({isModalVisible, setIsModalVisible}) => {
             dispatch(
                 changeField({
                     form: 'register',
-                    key: 'createDate',
+                    key: 'classYear',
                     value: e
                 })
             );
@@ -48,12 +48,12 @@ const AddJournalContainer = ({isModalVisible, setIsModalVisible}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        const { schoolName,gradeNum,classroomNum,createDate,themeColor} = form;
-        if([schoolName,gradeNum,classroomNum,createDate,themeColor].includes('')) {
+        const { schoolName,gradeNum,classroomNum,classYear,themeColor} = form;
+        if([schoolName,gradeNum,classroomNum,classYear,themeColor].includes('')) {
             setError('빈 칸을 모두 입력하세요.');
             return;
         }
-        dispatch(journalRegister({schoolName,gradeNum,classroomNum,themeColor,createDate}));
+        dispatch(journalRegister({schoolName,gradeNum,classroomNum,themeColor,classYear}));
         setIsModalVisible(false);
     };
 

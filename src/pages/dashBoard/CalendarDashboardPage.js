@@ -3,15 +3,13 @@ import CalendarBox from '../../components/dashboard/journal/schedular-calendar/c
 import SchedularCalendarBox from '../../components/dashboard/journal/schedular-calendar/SchedularCalendarBox';
 import MemoControllerContainer from '../../containers/dashboard/journal/schedular-calendar/memo/MemoControllerContainer';
 import MemoListContainer from '../../containers/dashboard/journal/schedular-calendar/memo/MemoListContainer';
-import CalendarControllerContainer from '../../containers/dashboard/journal/schedular-calendar/calendar/CalendarControllerContainer';
-import SchedularContainer from '../../containers/dashboard/journal/schedular-calendar/calendar/SchedularContainer';
+import CalendarSchedularContainer from '../../containers/dashboard/journal/schedular-calendar/calendar/CalendarSchedularContainer';
 const CalendarDashboardPage = () => {
     
   return (
       <SchedularCalendarBox>
         <CalendarBox>
-            <CalendarControllerContainer/>
-            <SchedularContainer/>
+            <CalendarSchedularContainer/>
         </CalendarBox>
         <MemoBox>
             <MemoControllerContainer/>

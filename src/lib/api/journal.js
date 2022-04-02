@@ -1,8 +1,8 @@
 import client from './client';
 
 export const register = {
-    journal : ({schoolName,gradeNum,classroomNum,themeColor,createDate}) =>
-            client.post('/api/journal/',{schoolName,gradeNum,classroomNum,themeColor,createDate}),
+    journal : ({schoolName,gradeNum,classroomNum,themeColor,classYear}) =>
+            client.post('/api/journal/',{schoolName,gradeNum,classroomNum,themeColor,classYear}),
     memo : ({title,content,selectedMonth,selectedJournal}) =>
             client.post('/api/journal/memo/',{title,content,selectedMonth,selectedJournal}),
 }

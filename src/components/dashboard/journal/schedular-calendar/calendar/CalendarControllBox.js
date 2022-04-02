@@ -26,8 +26,14 @@ const CalendarControllBox = ({
     onChangeMonth,
     selectedJournal,
     selectedMonth,
-    toggleEditModal
+    onToggleEditModal,
+    onEditingAppointmentChange,
+    onAddedAppointmentChange
 }) => {
+    const today = new Date();
+    const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const startDayHour = today.getHours();
+
     return(
             <CalendarControllBoxBlock>
                 <div className="inputWrapper">
@@ -37,7 +43,14 @@ const CalendarControllBox = ({
                     </Space>
                 </div>
                 <div className="buttonWrapper">
-                    <DashboardButton onClick={toggleEditModal}>
+                    <DashboardButton onClick={() => {
+                        onToggleEditModal();
+                        onEditingAppointmentChange(undefined);
+                        onAddedAppointmentChange({
+                        startDate: new Date(currentDate).setHours(startDayHour),
+                        endDate: new Date(currentDate).setHours(startDayHour + 1),
+                        });
+                    }}>
                         <PlusOutlined />
                         <span className="btn-text">행사추가</span>
                     </DashboardButton>

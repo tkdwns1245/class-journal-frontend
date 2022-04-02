@@ -1,4 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
+import {appointmentRegister} from '../../../../../modules/appointment';
+import { connectProps } from '@devexpress/dx-react-core';
 import {
   styled, darken, alpha, lighten,
 } from '@mui/material/styles';
@@ -12,32 +15,20 @@ import {
   MonthView,
   Appointments,
   Toolbar,
-  DateNavigator,
   AppointmentTooltip,
   AppointmentForm,
   EditRecurrenceMenu,
-  Resources,
   DragDropProvider,
+  Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import ColorLens from '@mui/icons-material/ColorLens';
 import {Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,Button,TextField,Fab} from '@mui/material'
-import AddIcon from '@mui/icons-material/Add';
-import LocationOn from '@mui/icons-material/LocationOn';
-import Notes from '@mui/icons-material/Notes';
-import Close from '@mui/icons-material/Close';
-import CalendarToday from '@mui/icons-material/CalendarToday';
-import Create from '@mui/icons-material/Create';
+import AppointmentFormComponent from './AppointmentFormComponent';
 
-const StyledFab = styled(Fab)(({ theme }) => ({
-  [`&.${classes.addButton}`]: {
-    position: 'absolute',
-    bottom: theme.spacing(3),
-    right: theme.spacing(4),
-  },
-}));
+
 
 const PREFIX = 'Demo';
 const owners = [
@@ -53,19 +44,7 @@ const owners = [
       text: 'John Heart',
       id: 3,
       color: '#E91E63',
-    }, {
-      text: 'Taylor Riley',
-      id: 4,
-      color: '#E91E63',
-    }, {
-      text: 'Brad Farkus',
-      id: 5,
-      color: '#AB47BC',
-    }, {
-      text: 'Arthur Miller',
-      id: 6,
-      color: '#FFA726',
-    },
+    }
   ];
 const classes = {
   cell: `${PREFIX}-cell`,
@@ -204,7 +183,7 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
 
 const resources = [{
   fieldName: 'ownerId',
-  title: 'Owners',
+  title: 'important',
   instances: owners,
 }];
 
@@ -274,55 +253,24 @@ const FlexibleSpace = (({ ...restProps }) => (
   </StyledToolbarFlexibleSpace>
 ));
 
+
+
 const SchedularCalendar = ({
   editModalVisible,
   deleteModalVisible,
   onToggleEditModal,
-  onToggleDeleteModal}
+  onToggleDeleteModal,}
   ) => {
   const [isNewAppointment, setIsNewAppointment] = useState(false);
-  const [editingAppointment,setEditingAppointment] = useState(null);
+  const [editingAppointment,setEditingAppointment] = useState(undefined);
   const [previousAppointment,setPreviousAppointment] = useState(null);
   const [addedAppointment, setAddedAppointment] = useState(null);
-  const onEditingAppointmentChange = (editingAppointment) =>{
-    setEditingAppointment(editingAppointment);
-  }
-  const onAddedAppointmentChange = (addedAppointment) =>{
-    setPreviousAppointment(editingAppointment);
-    setAddedAppointment(addedAppointment);
-    setEditingAppointment(undefined);
-    setIsNewAppointment(true);
-  }
-  const commitDeletedAppointment = () =>{
-    // this.setState((state) => {
-    //   const { data, deletedAppointmentId } = state;
-    //   const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-
-    //   return { data: nextData, deletedAppointmentId: null };
-    // });
-    onToggleDeleteModal();
-  }
-  const today = new Date();
-  const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  const startDayHour = today.getHours();
-  const commitChanges = ({ added, changed, deleted }) =>{
-    this.setState((state) => {
-      let { data } = state;
-      if (added) {
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-      }
-      if (changed) {
-        data = data.map(appointment => (
-          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-      }
-      if (deleted !== undefined) {
-        data = data.filter(appointment => appointment.id !== deleted);
-      }
-      return { data };
-    });
-  }
-const data = [
+  const {selectedJournal,selectedMonth} = useSelector(({journal}) => ({
+      selectedJournal: journal.selectedJournal,
+      selectedMonth: journal.selectedMonth
+  }));
+  const dispatch = useDispatch();
+  let [data,setData] = useState([
     {
       id: 0,
       title: 'Watercolor Landscape',
@@ -332,6 +280,7 @@ const data = [
     }, {
       id: 1,
       title: 'Monthly Planning',
+      content:'test',
       startDate: new Date(2018, 5, 28, 9, 30),
       endDate: new Date(2018, 5, 28, 11, 30),
       ownerId: 1,
@@ -384,7 +333,73 @@ const data = [
       endDate: new Date(2018, 6, 9, 12, 0),
       ownerId: 3,
     },
-  ];
+  ]);
+  
+  
+  
+  const onEditingAppointmentChange = (editingAppointment) =>{
+    setEditingAppointment(editingAppointment);
+  }
+  const onAddedAppointmentChange = (addedAppointment) =>{
+    setPreviousAppointment(editingAppointment);
+    setAddedAppointment(addedAppointment);
+    setEditingAppointment(undefined);
+    setIsNewAppointment(true);
+  }
+  const commitDeletedAppointment = () =>{
+    // this.setState((state) => {
+    //   const { data, deletedAppointmentId } = state;
+    //   const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
+
+    //   return { data: nextData, deletedAppointmentId: null };
+    // });
+    onToggleDeleteModal();
+  }
+  const onCommitChanges = ({ added, changed, deleted }) => {
+    if (added) {
+      const appointment = added;
+      console.log(appointment);
+      dispatch(appointmentRegister({appointment,selectedJournal}));
+      // const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+      // data = [...data, { id: startingAddedId, ...added }];
+    }
+    if (changed) {
+      data = data.map(appointment => (
+        changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+    }
+    if (deleted !== undefined) {
+      data = data.filter(appointment => appointment.id !== deleted);
+    }
+    setData(data);
+  }
+
+
+  const appointmentForm = connectProps(AppointmentFormComponent, () => {
+
+    const currentAppointment = data
+      .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
+      || addedAppointment;
+    const cancelAppointment = () => {
+      if (isNewAppointment) {
+          setEditingAppointment(previousAppointment);
+          setIsNewAppointment(false);
+      };
+    };
+  
+    return {
+      visible: editModalVisible,
+      appointmentData: currentAppointment,
+      commitChanges: onCommitChanges,
+      visibleChange: onToggleEditModal,
+      onEditingAppointmentChange,
+      cancelAppointment,
+    };
+  });
+
+  const today = new Date();
+  const currentDate = '2018-06-27';
+  const startDayHour = today.getHours();
+  appointmentForm.update();
 
     return (
         <Paper>
@@ -392,7 +407,11 @@ const data = [
             data={data}
         >
             <EditingState
-            // onCommitChanges={this.commitChanges}
+              addedAppointment={addedAppointment}
+              onAddedAppointmentChange={onAddedAppointmentChange}
+              onCommitChanges={onCommitChanges}
+              editingAppointment={editingAppointment}
+              onEditingAppointmentChange={onEditingAppointmentChange}
             />
             <ViewState
             defaultCurrentDate={currentDate}
@@ -407,18 +426,18 @@ const data = [
             appointmentContentComponent={AppointmentContent}
             />
             <Resources
-            data={resources}
+              data={resources}
             />
             <EditRecurrenceMenu />
             <AppointmentTooltip
-            showCloseButton
-            showDeleteButton
-            showOpenButton
+              showCloseButton
+              showDeleteButton
+              showOpenButton
             />
             <AppointmentForm 
-            // overlayComponent={this.appointmentForm}
-            visible={editModalVisible}
-            onVisibilityChange={() => {onToggleEditModal();}}
+              overlayComponent={appointmentForm}
+              visible={editModalVisible}
+              onVisibilityChange={onToggleEditModal}
             />
             <DragDropProvider />
         </Scheduler>
@@ -444,21 +463,6 @@ const data = [
             </Button>
           </DialogActions>
         </Dialog>
-
-        <StyledFab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            onToggleEditModal();
-            onEditingAppointmentChange(undefined);
-            onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </StyledFab>
         </Paper>
     );
 }

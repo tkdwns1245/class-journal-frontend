@@ -50,7 +50,7 @@ const AddJournalModal = ({form,visible,onSubmit,onChange,onCancel,error}) => {
                 noStyle
                 rules={[{ required: true, message: 'Username is required' }]}
               >
-                <DatePicker name="createDate" onChange={onChange} value={form.createDate} picker="year"/>
+                <DatePicker name="classYear" onChange={onChange} value={form.classYear} picker="year"/>
               </Form.Item>
             </Space>
           </Form.Item>

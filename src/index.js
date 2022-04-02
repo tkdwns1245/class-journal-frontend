@@ -14,6 +14,7 @@ import { loadableReady } from "@loadable/component";
 import reactDom from "react-dom";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {tempSetUser, check} from './modules/user';
+import {selectJournal} from './modules/journal';
 
 const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger('default');
@@ -42,9 +43,20 @@ function loadUser() {
     console.log('localStorage is not working');
   }
 }
+function loadJournal() {
+  try{
+    const journalItem = localStorage.getItem('journal');
+    if(!journalItem) return;
+
+    store.dispatch(selectJournal(journalItem));
+  }catch(e) {
+    console.log('journal is not in localStorage');
+  }
+}
 
 sagaMiddleware.run(rootSaga);
 loadUser();
+loadJournal();
 const Root = () => {
   return (
     <Provider store={store}>

@@ -34,7 +34,7 @@ const JournalManageContainer = () => {
                 changeField({
                     form: 'register',
                     type: 'journal',
-                    key: 'createDate',
+                    key: 'classYear',
                     value: e
                 })
             );
@@ -63,17 +63,22 @@ const JournalManageContainer = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        const { schoolName,gradeNum,classroomNum,createDate,themeColor} = form;
-        if([schoolName,gradeNum,classroomNum,createDate,themeColor].includes('')) {
+        const { schoolName,gradeNum,classroomNum,classYear,themeColor} = form;
+        if([schoolName,gradeNum,classroomNum,classYear,themeColor].includes('')) {
             setError('빈 칸을 모두 입력하세요.');
             return;
         }
-        dispatch(register({schoolName,gradeNum,classroomNum,themeColor,createDate}));
+        dispatch(register({schoolName,gradeNum,classroomNum,themeColor,classYear}));
         setIsModalVisible(false);
     };
     
     const onSelectJournal = useCallback(({journalItem}) =>{
         navigate('/dashBoard/journal-calendar');
+        try{
+            localStorage.setItem('journalItem',journalItem);
+        } catch(e) {
+            console.log('localStorage is not working');
+        }
         dispatch(selectJournal({journalItem}));
     },[dispatch,navigate]);
 

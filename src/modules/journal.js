@@ -43,12 +43,12 @@ export const initializeForm = createAction(INITIALIZE_FORM, ({form,type,values})
     type,
     values
 }));
-export const register = createAction(REGISTER, ({schoolName,gradeNum,classroomNum,themeColor,createDate}) => ({
+export const register = createAction(REGISTER, ({schoolName,gradeNum,classroomNum,themeColor,classYear}) => ({
     schoolName,
     gradeNum,
     classroomNum,
     themeColor,
-    createDate
+    classYear
 }));
 export const memoRegister = createAction(MEMO_REGISTER, ({title,content,selectedMonth,selectedJournal}) => ({
     title,
@@ -91,7 +91,7 @@ const initialState = {
             schoolName: '',
             gradeNum: '',
             classroomNum: '',
-            createDate:'',
+            classYear:'',
             themeColor:'',
         },
         memo : {
@@ -107,7 +107,7 @@ const initialState = {
             schoolName: '',
             gradeNum: '',
             classroomNum: '',
-            createDate:'',
+            classYear:'',
             themeColor:'',
         },
         memo : {
