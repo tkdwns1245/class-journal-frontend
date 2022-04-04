@@ -26,16 +26,18 @@ export const appointmentRegister = createAction(APPOINTMENT_REGISTER, ({appointm
     selectedJournal
 }));
 
-export const appointmentUpdate = createAction(APPOINTMENT_UPDATE, ({id,title,content}) => ({
+export const appointmentUpdate = createAction(APPOINTMENT_UPDATE, ({id,title,content,startDate,endDate}) => ({
     id,
     title,
-    content
+    content,
+    startDate,
+    endDate
 }));
 
 export const appointmentDelete = createAction(APPOINTMENT_DELETE, ({id}) => ({
     id
 }));
-export const listAppointment = createAction(LIST_APPOINTMENTS, ({journal,selectedMonth}) => ({journal,selectedMonth}));
+export const listAppointments = createAction(LIST_APPOINTMENTS, ({selectedJournal,selectedMonth}) => ({selectedJournal,selectedMonth}));
 
 const appointmentRegisterSaga = createRequestSaga(APPOINTMENT_REGISTER, appointmentAPI.register);
 const appointmentUpdateSaga = createRequestSaga(APPOINTMENT_UPDATE, appointmentAPI.update);
@@ -50,7 +52,7 @@ export function* appointmentSaga() {
 }
 
 const initialState = {
-    appointments: null,
+    appointments: [],
     appointmentError : null,
 };
 
@@ -90,7 +92,12 @@ const appointment = handleActions(
     }),
     [LIST_APPOINTMENTS_SUCCESS] : (state, { payload: appointments}) => 
     produce(state, draft => {
-        draft['appointments'] = appointments;
+        draft['appointments'] = appointments.map((appointment,status) => {
+            appointment.id = appointment._id;
+            appointment.startDate = new Date(appointment.startDate);
+            appointment.endDate = new Date(appointment.endDate);
+            return appointment;
+        })
         draft['appointmentError'] = null;
     }),
     [LIST_APPOINTMENTS_FAILURE] : (state, {payload: error}) => 

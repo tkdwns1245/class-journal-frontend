@@ -13,18 +13,28 @@ const SchedularBoxBlock = styled.div`
     
 `
 const SchedularBox = ({
+    appointments,
     isEditModalVisible,
-    isDeleteModalVisible,
-    toggleEditModal,
-    toggleDeleteModal,
+    onToggleEditModal,
+    onEditingAppointmentChange,
+    onAddedAppointmentChange,
+    editingAppointment,
+    addedAppointment,
+    onCommitChanges,
+    appointmentFormContainer,
 }) => {
     return(
         <SchedularBoxBlock>
             <SchedularCalendar
+                appointments={appointments}
                 editModalVisible={isEditModalVisible}
-                deleteModalVisible={isDeleteModalVisible}
-                onToggleEditModal={toggleEditModal}
-                onToggleDeleteModal={toggleDeleteModal}
+                onToggleEditModal={onToggleEditModal}
+                onEditingAppointmentChange={onEditingAppointmentChange}
+                onAddedAppointmentChange={onAddedAppointmentChange}
+                editingAppointment={editingAppointment}
+                addedAppointment={addedAppointment}
+                onCommitChanges={onCommitChanges}
+                appointmentFormContainer={appointmentFormContainer}
             />
         </SchedularBoxBlock>
     )

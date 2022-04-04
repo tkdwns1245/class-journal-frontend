@@ -1,17 +1,22 @@
-import React, {useState,useCallback} from 'react';
+import React, {useState,useEffect,useCallback} from 'react';
+import { connectProps } from '@devexpress/dx-react-core';
 import {useDispatch, useSelector} from 'react-redux';
 import CalendarControllBox from '../../../../../components/dashboard/journal/schedular-calendar/calendar/CalendarControllBox.js';
+import AppointmentFormComponent from '../../../../../components/dashboard/journal/schedular-calendar/calendar/AppointmentFormComponent.js';
 import SchedularBox from '../../../../../components/dashboard/journal/schedular-calendar/calendar/SchedularBox.js';
 import {selectMonth} from '../../../../../modules/journal.js';
+import {appointmentRegister,appointmentUpdate,appointmentDelete,listAppointments} from '../../../../../modules/appointment';
 
 const CalendarSchedularContainer = () => {
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [isNewAppointment, setIsNewAppointment] = useState(false);
     const [editingAppointment,setEditingAppointment] = useState(null);
     const [previousAppointment,setPreviousAppointment] = useState(null);
     const [addedAppointment, setAddedAppointment] = useState(null);
     const dispatch = useDispatch();
+    const {appointments} = useSelector(({appointment}) => ({
+        appointments: appointment.appointments,
+    }));
 
     const {selectedJournal,selectedMonth} = useSelector(({journal}) => ({
         selectedJournal: journal.selectedJournal,
@@ -24,12 +29,10 @@ const CalendarSchedularContainer = () => {
     },[dispatch]);
 
 
-    const toggleEditModal = () => {
+    const onToggleEditModal = () => {
         setIsEditModalVisible(!isEditModalVisible);
     };
-    const toggleDeleteModal = () => {
-        setIsDeleteModalVisible(!isDeleteModalVisible);
-    }
+
     const onEditingAppointmentChange = (editingAppointment) =>{
         setEditingAppointment(editingAppointment);
     }
@@ -39,15 +42,51 @@ const CalendarSchedularContainer = () => {
         setEditingAppointment(undefined);
         setIsNewAppointment(true);
     }
-    const commitDeletedAppointment = () =>{
-        // this.setState((state) => {
-        //   const { data, deletedAppointmentId } = state;
-        //   const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-
-        //   return { data: nextData, deletedAppointmentId: null };
-        // });
-        toggleDeleteModal();
+    const onCommitChanges = ({ added, changed, deleted }) => {
+        if (added) {
+          const appointment = added;
+          dispatch(appointmentRegister({appointment,selectedJournal}));
+        }
+        if (changed) {
+          const {id,title,content,startDate,endDate} = changed[0];
+          dispatch(appointmentUpdate({id,title,content,startDate,endDate}));
+        }
+        if (deleted !== undefined) {
+          const id = deleted;
+          dispatch(appointmentDelete({id}));
+        //   data = data.filter(appointment => appointment.id !== deleted);
+        }
+        // setData(data);
     }
+
+    useEffect(() => {
+        dispatch(listAppointments({selectedJournal,selectedMonth}));
+    }, [dispatch,selectedJournal,selectedMonth]);
+    
+    const appointmentFormContainer = connectProps(AppointmentFormComponent, () => {
+        
+        const appointmentData = appointments
+          .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
+          || addedAppointment;
+        const cancelAppointment = () => {
+          if (isNewAppointment) {
+              setEditingAppointment(previousAppointment);
+              setIsNewAppointment(false);
+          };
+        };
+      
+        return (
+            {
+                visible:isEditModalVisible,
+                commitChanges:onCommitChanges,
+                visibleChange:onToggleEditModal,
+                onEditingAppointmentChange,
+                cancelAppointment,
+                appointmentData
+            }
+        ) 
+          
+      });
 
     return (
             <>
@@ -55,15 +94,20 @@ const CalendarSchedularContainer = () => {
                     onChangeMonth={onChangeMonth}
                     selectedMonth={selectedMonth}
                     selectedJournal={selectedJournal}
-                    onToggleEditModal={toggleEditModal}
+                    onToggleEditModal={onToggleEditModal}
                     onEditingAppointmentChange={onEditingAppointmentChange}
                     onAddedAppointmentChange={onAddedAppointmentChange}
                     />
                 <SchedularBox 
-                    isDeleteModalVisible={isDeleteModalVisible}
+                    appointments={appointments}
                     isEditModalVisible={isEditModalVisible}
-                    toggleEditModal={toggleEditModal}
-                    toggleDeleteModal={toggleDeleteModal}
+                    onToggleEditModal={onToggleEditModal}
+                    onEditingAppointmentChange={onEditingAppointmentChange}
+                    onAddedAppointmentChange={onAddedAppointmentChange}
+                    editingAppointment={editingAppointment}
+                    addedAppointment={addedAppointment}
+                    onCommitChanges={onCommitChanges}
+                    appointmentFormContainer={appointmentFormContainer}
                 />
             </>
     )

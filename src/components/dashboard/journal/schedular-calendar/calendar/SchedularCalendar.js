@@ -1,13 +1,10 @@
-import React,{useState,useEffect} from 'react';
-import {useDispatch,useSelector} from 'react-redux';
-import {appointmentRegister} from '../../../../../modules/appointment';
+import React,{useState} from 'react';
 import { connectProps } from '@devexpress/dx-react-core';
 import {
   styled, darken, alpha, lighten,
 } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import TableCell from '@mui/material/TableCell';
-import Typography from '@mui/material/Typography';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import classNames from 'clsx';
 import {
@@ -24,8 +21,6 @@ import {
 import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
-import ColorLens from '@mui/icons-material/ColorLens';
-import {Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,Button,TextField,Fab} from '@mui/material'
 import AppointmentFormComponent from './AppointmentFormComponent';
 
 
@@ -244,32 +239,28 @@ const AppointmentContent = (({ ...restProps }) => (
   <StyledAppointmentsAppointmentContent {...restProps} className={classes.apptContent} />
 ));
 
-const FlexibleSpace = (({ ...restProps }) => (
-  <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
-    <div className={classes.flexContainer}>
-      <ColorLens fontSize="large" htmlColor="#FF7043" />
-      <Typography variant="h5" style={{ marginLeft: '10px' }}>Art School</Typography>
-    </div>
-  </StyledToolbarFlexibleSpace>
-));
-
-
+// const FlexibleSpace = (({ ...restProps }) => (
+//   <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
+//     <div className={classes.flexContainer}>
+//       <ColorLens fontSize="large" htmlColor="#FF7043" />
+//       <Typography variant="h5" style={{ marginLeft: '10px' }}>Art School</Typography>
+//     </div>
+//   </StyledToolbarFlexibleSpace>
+// ));
 
 const SchedularCalendar = ({
+  appointments,
   editModalVisible,
-  deleteModalVisible,
   onToggleEditModal,
-  onToggleDeleteModal,}
+  onEditingAppointmentChange,
+  onAddedAppointmentChange,
+  editingAppointment,
+  addedAppointment,
+  onCommitChanges,
+  appointmentFormContainer,
+}
   ) => {
-  const [isNewAppointment, setIsNewAppointment] = useState(false);
-  const [editingAppointment,setEditingAppointment] = useState(undefined);
-  const [previousAppointment,setPreviousAppointment] = useState(null);
-  const [addedAppointment, setAddedAppointment] = useState(null);
-  const {selectedJournal,selectedMonth} = useSelector(({journal}) => ({
-      selectedJournal: journal.selectedJournal,
-      selectedMonth: journal.selectedMonth
-  }));
-  const dispatch = useDispatch();
+
   let [data,setData] = useState([
     {
       id: 0,
@@ -334,77 +325,34 @@ const SchedularCalendar = ({
       ownerId: 3,
     },
   ]);
+
+
+  // const appointmentForm = connectProps(AppointmentFormComponent, () => {
+
+  //   const cancelAppointment = () => {
+  //     if (isNewAppointment) {
+  //         setEditingAppointment(previousAppointment);
+  //         setIsNewAppointment(false);
+  //     };
+  //   };
   
-  
-  
-  const onEditingAppointmentChange = (editingAppointment) =>{
-    setEditingAppointment(editingAppointment);
-  }
-  const onAddedAppointmentChange = (addedAppointment) =>{
-    setPreviousAppointment(editingAppointment);
-    setAddedAppointment(addedAppointment);
-    setEditingAppointment(undefined);
-    setIsNewAppointment(true);
-  }
-  const commitDeletedAppointment = () =>{
-    // this.setState((state) => {
-    //   const { data, deletedAppointmentId } = state;
-    //   const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-
-    //   return { data: nextData, deletedAppointmentId: null };
-    // });
-    onToggleDeleteModal();
-  }
-  const onCommitChanges = ({ added, changed, deleted }) => {
-    if (added) {
-      const appointment = added;
-      console.log(appointment);
-      dispatch(appointmentRegister({appointment,selectedJournal}));
-      // const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-      // data = [...data, { id: startingAddedId, ...added }];
-    }
-    if (changed) {
-      data = data.map(appointment => (
-        changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-    }
-    if (deleted !== undefined) {
-      data = data.filter(appointment => appointment.id !== deleted);
-    }
-    setData(data);
-  }
-
-
-  const appointmentForm = connectProps(AppointmentFormComponent, () => {
-
-    const currentAppointment = data
-      .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
-      || addedAppointment;
-    const cancelAppointment = () => {
-      if (isNewAppointment) {
-          setEditingAppointment(previousAppointment);
-          setIsNewAppointment(false);
-      };
-    };
-  
-    return {
-      visible: editModalVisible,
-      appointmentData: currentAppointment,
-      commitChanges: onCommitChanges,
-      visibleChange: onToggleEditModal,
-      onEditingAppointmentChange,
-      cancelAppointment,
-    };
-  });
-
-  const today = new Date();
-  const currentDate = '2018-06-27';
-  const startDayHour = today.getHours();
-  appointmentForm.update();
+  //   return {
+  //     visible: editModalVisible,
+  //     commitChanges: onCommitChanges,
+  //     visibleChange: onToggleEditModal,
+  //     onEditingAppointmentChange,
+  //     cancelAppointment,
+  //     appointments,
+  //     addedAppointment,
+  //     editingAppointment
+  //   };
+  // });
+  const currentDate = new Date();
 
     return (
         <Paper>
         <Scheduler
-            data={data}
+            data={appointments}
         >
             <EditingState
               addedAppointment={addedAppointment}
@@ -435,34 +383,13 @@ const SchedularCalendar = ({
               showOpenButton
             />
             <AppointmentForm 
-              overlayComponent={appointmentForm}
+              overlayComponent={appointmentFormContainer}
               visible={editModalVisible}
               onVisibilityChange={onToggleEditModal}
             />
             <DragDropProvider />
         </Scheduler>
 
-        <Dialog
-          open={deleteModalVisible}
-          // onClose={this.cancelDelete}
-        >
-          <DialogTitle>
-            Delete Appointment
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this appointment?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() =>{onToggleDeleteModal()}} color="primary" variant="outlined">
-              Cancel
-            </Button>
-            <Button onClick={() => {commitDeletedAppointment()}} color="secondary" variant="outlined">
-              Delete
-            </Button>
-          </DialogActions>
-        </Dialog>
         </Paper>
     );
 }

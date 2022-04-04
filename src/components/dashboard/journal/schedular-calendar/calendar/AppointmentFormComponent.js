@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useCallback, useEffect, useState} from 'react';
 
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -95,16 +95,15 @@ const StyledDiv = styled('div')(({ theme }) => ({
 const AppointmentFormComponent = ({
         visible,
         visibleChange,
-        appointmentData,
-        cancelAppointment,
         commitChanges,
-        onEditingAppointmentChange,
         target,
-        onHide
+        onHide,
+        cancelAppointment,
+        appointmentData
       }
 ) => {
     const [appointmentChanges, setAppointmentChanges] = useState(null);
-
+    
     const getAppointmentData = () => {
       return appointmentData;
     };
@@ -126,7 +125,7 @@ const AppointmentFormComponent = ({
         ...getAppointmentChanges(),
       };
       if (type === 'deleted') {
-        commitChanges({ [type]: appointment.id });
+        commitChanges({ [type]: appointment._id });
       } else if (type === 'changed') {
         commitChanges({ [type]: { [appointment.id]: appointment } });
       } else {
@@ -139,12 +138,11 @@ const AppointmentFormComponent = ({
       ...appointmentData,
       ...appointmentChanges,
     };
-
-    const isNewAppointment = () =>(appointmentData === null);
+    const isNewAppointment = useCallback(() =>appointmentData && appointmentData.id === undefined,
+    [appointmentData]);
     const applyChanges = isNewAppointment()
       ? () => commitAppointment('added')
       : () => commitAppointment('changed');
-
     const textEditorProps = field => ({
       variant: 'outlined',
       onChange: ({ target: change }) => changeAppointment({

@@ -38,7 +38,7 @@ const JournalManageContainer = () => {
                     value: e
                 })
             );
-        }else if (e.target.name === "classroomNum" || e.target.name === "gradeNum"){
+        } else if (e.target.name === "classroomNum" || e.target.name === "gradeNum") {
             const {value, name} = e.target;
             dispatch(
                 changeField({

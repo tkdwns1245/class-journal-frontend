@@ -2,23 +2,23 @@ import client from './client';
 
 export const register = ({appointment,selectedJournal}) => {
     const {title,content,startDate,endDate} = appointment;
-    client.post('/api/journal/appointment/',{title,content,startDate,endDate,selectedJournal})
+    return client.post('/api/journal/appointment/',{title,content,startDate,endDate,selectedJournal})
 }
 
-export const update = (appointment) =>{
-    const {_id,title,content,startDate,endDate} = appointment;
-    client.patch(`/api/journal/appointment/${_id}`,{title,content,startDate,endDate})
+export const update = ({id,title,content,startDate,endDate}) =>{
+    return client.patch(`/api/journal/appointment/${id}`,{title,content,startDate,endDate})
 }
 
-export const remove = (appointment) => {
-    const {_id,title,content,startDate,endDate} = appointment;
-    client.delete(`/api/journal/appointment/${_id}`,{title,content,startDate,endDate})
+export const remove = ({id}) => {
+    return client.delete(`/api/journal/appointment/${id}`)
 }
 
-export const listAppointments = ({journal,selectedMonth}) => {
+export const listAppointments = ({selectedJournal,selectedMonth}) => {
+        const {_id,classYear} = selectedJournal;
         const params = {
-                journal,
-                selectedMonth
+                journal_id : _id,
+                journal_classYear : classYear,
+                selectedMonth:selectedMonth
         };
         return client.get('/api/journal/appointment/',{params});
 }
