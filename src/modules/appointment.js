@@ -21,9 +21,10 @@ export const changeField = createAction(
 );
 
 
-export const appointmentRegister = createAction(APPOINTMENT_REGISTER, ({appointment,selectedJournal}) => ({
+export const appointmentRegister = createAction(APPOINTMENT_REGISTER, ({appointment,selectedJournal,selectedMonth}) => ({
     appointment,
-    selectedJournal
+    selectedJournal,
+    selectedMonth
 }));
 
 export const appointmentUpdate = createAction(APPOINTMENT_UPDATE, ({id,title,content,startDate,endDate}) => ({

@@ -45,7 +45,7 @@ const CalendarSchedularContainer = () => {
     const onCommitChanges = ({ added, changed, deleted }) => {
         if (added) {
           const appointment = added;
-          dispatch(appointmentRegister({appointment,selectedJournal}));
+          dispatch(appointmentRegister({appointment,selectedJournal,selectedMonth}));
         }
         if (changed) {
           const {id,title,content,startDate,endDate} = changed[0];
