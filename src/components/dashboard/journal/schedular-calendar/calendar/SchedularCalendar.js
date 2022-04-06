@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect,useCallback, useState} from 'react';
 import { connectProps } from '@devexpress/dx-react-core';
 import {
   styled, darken, alpha, lighten,
@@ -22,7 +22,7 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import AppointmentFormComponent from './AppointmentFormComponent';
-
+import {useSelector} from 'react-redux';
 
 
 const PREFIX = 'Demo';
@@ -325,30 +325,18 @@ const SchedularCalendar = ({
       ownerId: 3,
     },
   ]);
+  const {selectedJournal,selectedMonth} = useSelector(({journal}) => ({
+    selectedJournal: journal.selectedJournal,
+    selectedMonth: journal.selectedMonth
+  }));
 
-
-  // const appointmentForm = connectProps(AppointmentFormComponent, () => {
-
-  //   const cancelAppointment = () => {
-  //     if (isNewAppointment) {
-  //         setEditingAppointment(previousAppointment);
-  //         setIsNewAppointment(false);
-  //     };
-  //   };
+  const getCurrentDate = useCallback(()=>{
+    const journal_classYear = selectedJournal.classYear.split('-')[0];
+    let currentDate = new Date(`${journal_classYear}-${parseInt(selectedMonth)}-2`);
+    console.log(currentDate);
+    return currentDate;
+  },[selectedJournal,selectedMonth]);
   
-  //   return {
-  //     visible: editModalVisible,
-  //     commitChanges: onCommitChanges,
-  //     visibleChange: onToggleEditModal,
-  //     onEditingAppointmentChange,
-  //     cancelAppointment,
-  //     appointments,
-  //     addedAppointment,
-  //     editingAppointment
-  //   };
-  // });
-  const currentDate = new Date();
-
     return (
         <Paper>
         <Scheduler
@@ -362,7 +350,7 @@ const SchedularCalendar = ({
               onEditingAppointmentChange={onEditingAppointmentChange}
             />
             <ViewState
-            defaultCurrentDate={currentDate}
+            currentDate={getCurrentDate()}
             />
 
             <MonthView

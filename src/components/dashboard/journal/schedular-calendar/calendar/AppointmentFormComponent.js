@@ -3,6 +3,7 @@ import React,{useCallback, useEffect, useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { Button} from 'antd';
 import {
   Scheduler,
   Toolbar,
@@ -25,7 +26,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -64,6 +64,12 @@ const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.textField}`]: {
     width: '100%',
   },
+  [`& .${classes.textField} .Mui-focused .MuiOutlinedInput-notchedOutline`]: {
+    borderColor:'#1DA57A',
+  },
+  [`& .${classes.textField} .Mui-focused`]: {
+    color:'#1DA57A'
+  },
   [`& .${classes.content}`]: {
     padding: theme.spacing(2),
     paddingTop: 0,
@@ -77,6 +83,12 @@ const StyledDiv = styled('div')(({ theme }) => ({
       marginRight: 0,
     },
     width: '50%',
+  },
+  [`& .${classes.picker} .Mui-focused .MuiOutlinedInput-notchedOutline`]: {
+    borderColor:'#1DA57A'
+  },
+  [`& .${classes.picker} .Mui-focused`]: {
+    color:'#1DA57A'
   },
   [`& .${classes.wrapper}`]: {
     display: 'flex',
@@ -125,9 +137,9 @@ const AppointmentFormComponent = ({
         ...getAppointmentChanges(),
       };
       if (type === 'deleted') {
-        commitChanges({ [type]: appointment._id });
+        commitChanges({ [type]: appointment.id });
       } else if (type === 'changed') {
-        commitChanges({ [type]: { [appointment.id]: appointment } });
+        commitChanges({ [type]: appointment });
       } else {
         commitChanges({ [type]: appointment });
       }
@@ -138,7 +150,7 @@ const AppointmentFormComponent = ({
       ...appointmentData,
       ...appointmentChanges,
     };
-    const isNewAppointment = useCallback(() =>appointmentData && appointmentData.id === undefined,
+    const isNewAppointment = useCallback(() =>(appointmentData && appointmentData.id === undefined),
     [appointmentData]);
     const applyChanges = isNewAppointment()
       ? () => commitAppointment('added')
@@ -220,23 +232,22 @@ const AppointmentFormComponent = ({
             </div>
           </div>
           <div className={classes.buttonGroup}>
-            {!isNewAppointment() && (
+          {!isNewAppointment() && (
               <Button
-                variant="outlined"
-                color="secondary"
-                className={classes.button}
+                type="secondary"
                 onClick={() => {
                   visibleChange();
                   commitAppointment('deleted');
                 }}
+                style={
+                  {marginRight:"10px"}
+                }
               >
                 Delete
               </Button>
             )}
             <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
+              type="primary"
               onClick={() => {
                 visibleChange();
                 applyChanges();
@@ -244,6 +255,7 @@ const AppointmentFormComponent = ({
             >
               {isNewAppointment() ? 'Create' : 'Save'}
             </Button>
+            
           </div>
         </StyledDiv>
       </AppointmentForm.Overlay>

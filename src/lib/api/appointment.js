@@ -10,6 +10,7 @@ export const register = ({appointment,selectedJournal,selectedMonth}) => {
             icon: 'success',
             title: 'success message',
             text: '일정 등록에 성공하였습니다.',
+            confirmButtonColor: '#1DA57A',
         });
         return response;
     })
@@ -22,6 +23,7 @@ export const update = ({id,title,content,startDate,endDate}) =>{
             icon: 'success',
             title: 'success message',
             text: '일정 수정에 성공하였습니다.',
+            confirmButtonColor: '#1DA57A',
         });
         return response;
     })
@@ -34,6 +36,7 @@ export const remove = ({id}) => {
             icon: 'success',
             title: 'success message',
             text: '일정 삭제에 성공하였습니다.',
+            confirmButtonColor: '#1DA57A',
         });
         return response;
     })

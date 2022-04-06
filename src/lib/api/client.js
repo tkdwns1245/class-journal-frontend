@@ -13,6 +13,7 @@ const onError = (error) => {
         icon: 'error',
         title: 'error message',
         text: errorMessage,
+        confirmButtonColor: '#1DA57A',
     });
 }
 client.interceptors.response.use(

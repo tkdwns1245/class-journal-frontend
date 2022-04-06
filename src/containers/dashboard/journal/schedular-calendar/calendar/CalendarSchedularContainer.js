@@ -6,6 +6,7 @@ import AppointmentFormComponent from '../../../../../components/dashboard/journa
 import SchedularBox from '../../../../../components/dashboard/journal/schedular-calendar/calendar/SchedularBox.js';
 import {selectMonth} from '../../../../../modules/journal.js';
 import {appointmentRegister,appointmentUpdate,appointmentDelete,listAppointments} from '../../../../../modules/appointment';
+import Swal from "sweetalert2";
 
 const CalendarSchedularContainer = () => {
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -48,12 +49,27 @@ const CalendarSchedularContainer = () => {
           dispatch(appointmentRegister({appointment,selectedJournal,selectedMonth}));
         }
         if (changed) {
-          const {id,title,content,startDate,endDate} = changed[0];
+          const {id,title,content,startDate,endDate} = changed;
           dispatch(appointmentUpdate({id,title,content,startDate,endDate}));
         }
         if (deleted !== undefined) {
           const id = deleted;
-          dispatch(appointmentDelete({id}));
+          Swal.fire(
+            { 
+                text: "정말로 삭제 하시겠습니까?",
+                icon: 'warning', showCancelButton: true,
+                confirmButtonColor: '#1DA57A',
+                cancelButtonColor: '#885A40',
+                confirmButtonText: '승인',
+                cancelButtonText: '취소' 
+            }
+            ).then((result) => 
+            { 
+                if (result.isConfirmed) {
+                    dispatch(appointmentDelete({id}));
+                }
+            })
+          
         //   data = data.filter(appointment => appointment.id !== deleted);
         }
         // setData(data);

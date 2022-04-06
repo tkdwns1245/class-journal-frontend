@@ -62,7 +62,12 @@ const appointment = handleActions(
 
     [APPOINTMENT_REGISTER_SUCCESS] : (state, { payload: appointments}) => 
     produce(state, draft => {
-        draft['appointments'] = appointments;
+        draft['appointments'] = appointments.map((appointment) => {
+            appointment.id = appointment._id;
+            appointment.startDate = new Date(appointment.startDate);
+            appointment.endDate = new Date(appointment.endDate);
+            return appointment;
+        })
         draft['appointmentError'] = null;
     }),
     [APPOINTMENT_REGISTER_FAILURE] : (state, {payload: error}) => 
@@ -71,7 +76,7 @@ const appointment = handleActions(
     }),
     [APPOINTMENT_UPDATE_SUCCESS] : (state, { payload: appointment}) => 
     produce(state, draft => {
-        const findedAppointment = draft['appointments'].find(appointmentItem => appointmentItem._id === appointment._id);
+        const findedAppointment = draft['appointments'].find(appointmentItem => appointmentItem.id === appointment._id);
         findedAppointment.title = appointment.title;
         findedAppointment.content = appointment.content;
         findedAppointment.startDate = appointment.startDate;
@@ -93,7 +98,7 @@ const appointment = handleActions(
     }),
     [LIST_APPOINTMENTS_SUCCESS] : (state, { payload: appointments}) => 
     produce(state, draft => {
-        draft['appointments'] = appointments.map((appointment,status) => {
+        draft['appointments'] = appointments.map((appointment) => {
             appointment.id = appointment._id;
             appointment.startDate = new Date(appointment.startDate);
             appointment.endDate = new Date(appointment.endDate);

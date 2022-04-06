@@ -9,7 +9,7 @@ import { MdDelete } from "react-icons/md";
 import EditMemoModal from "./EditMemoModal.js";
 import {useDispatch, useSelector} from 'react-redux';
 import {changeField, initializeForm,memoUpdate,memoDelete} from '../../../../../modules/journal';
-import AskModal from '../../../../common/AskModal.js';
+import Swal from "sweetalert2";
 const MemoItemBlock = styled.div`
     width: 90%;
     height:250px;
@@ -53,7 +53,6 @@ const MemoItemBlock = styled.div`
 `;
 const DropdownMenu = ({memoItem}) =>{
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
@@ -100,16 +99,21 @@ const DropdownMenu = ({memoItem}) =>{
     };
 
     const onDeleteItem = () =>{
-        setIsDeleteModalVisible(true);
-    };
-
-    const onCancel = () => {
-        setIsDeleteModalVisible(false);
-    };
-
-    const onConfirm = () => {
-        dispatch(memoDelete({id:memoItem._id}));
-        setIsDeleteModalVisible(false);
+        Swal.fire(
+        { 
+            text: "정말로 삭제 하시겠습니까?",
+            icon: 'warning', showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '승인',
+            cancelButtonText: '취소' 
+        }
+        ).then((result) => 
+        { 
+            if (result.isConfirmed) {
+                dispatch(memoDelete({id:memoItem._id}));
+            }
+        })
     };
 
 
@@ -128,12 +132,6 @@ return (
         onChange={onChange}
         onSubmit={onSubmit}
         error={error}/>
-      <AskModal
-        description={'정말로 삭제하시겠습니까?'}
-        visible={isDeleteModalVisible}
-        onConfirm={onConfirm}
-        onCancel={onCancel}
-        />
     </Menu>
   )
 };
