@@ -14,6 +14,7 @@ const CalendarSchedularContainer = () => {
     const [editingAppointment,setEditingAppointment] = useState(null);
     const [previousAppointment,setPreviousAppointment] = useState(null);
     const [addedAppointment, setAddedAppointment] = useState(null);
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
     const {appointments} = useSelector(({appointment}) => ({
         appointments: appointment.appointments,
@@ -45,8 +46,26 @@ const CalendarSchedularContainer = () => {
     }
     const onCommitChanges = ({ added, changed, deleted }) => {
         if (added) {
+            console.log(added);
+          if(added.title === ('' || undefined)){
+              setError('일정 제목을 입력해주세요.');
+              return;
+          }
+          if(added.startDate === ('' || undefined)){
+              setError('일정 시작일을 입력해주세요.');
+              return;
+          }
+          if(added.endDate === ('' || undefined)){
+              setError('일정 종료일을 입력해주세요.');
+              return;
+          }
+          if(added.content === ('' || undefined)){
+              setError('일정 내용을 입력해주세요.');
+              return;
+          }
           const appointment = added;
           dispatch(appointmentRegister({appointment,selectedJournal,selectedMonth}));
+          setIsEditModalVisible(false);
         }
         if (changed) {
           const {id,title,content,startDate,endDate} = changed;
@@ -94,11 +113,12 @@ const CalendarSchedularContainer = () => {
         return (
             {
                 visible:isEditModalVisible,
+                error:error,
                 commitChanges:onCommitChanges,
                 visibleChange:onToggleEditModal,
                 onEditingAppointmentChange,
                 cancelAppointment,
-                appointmentData
+                appointmentData,
             }
         ) 
           

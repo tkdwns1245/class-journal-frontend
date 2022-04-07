@@ -1,4 +1,7 @@
 import React,{useCallback, useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import moment from 'moment';
+import 'moment/locale/ko';
 
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -18,7 +21,7 @@ import {
   AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import DateTimePicker from '@mui/lab/DateTimePicker';
+import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import Dialog from '@mui/material/Dialog';
@@ -35,6 +38,14 @@ import Notes from '@mui/icons-material/Notes';
 import Close from '@mui/icons-material/Close';
 import CalendarToday from '@mui/icons-material/CalendarToday';
 import Create from '@mui/icons-material/Create';
+
+const ErrorMessage = styled('div')(() => ({
+color: 'red',
+textAlign: 'center',
+fontSize: '0.875rem',
+marginTop: '1rem',
+width:'70%'
+}));
 
 const PREFIX = 'Demo';
 // #FOLD_BLOCK
@@ -106,6 +117,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
 }));
 const AppointmentFormComponent = ({
         visible,
+        error,
         visibleChange,
         commitChanges,
         target,
@@ -115,6 +127,9 @@ const AppointmentFormComponent = ({
       }
 ) => {
     const [appointmentChanges, setAppointmentChanges] = useState(null);
+    const {selectedJournal} = useSelector(({journal}) => ({
+      selectedJournal: journal.selectedJournal,
+    }));
     
     const getAppointmentData = () => {
       return appointmentData;
@@ -138,10 +153,19 @@ const AppointmentFormComponent = ({
       };
       if (type === 'deleted') {
         commitChanges({ [type]: appointment.id });
+        if(error){
+          return;
+        }
       } else if (type === 'changed') {
         commitChanges({ [type]: appointment });
+        if(error){
+          return;
+        }
       } else {
         commitChanges({ [type]: appointment });
+        if(error){
+          return;
+        }
       }
       setAppointmentChanges({});
     }
@@ -164,7 +188,10 @@ const AppointmentFormComponent = ({
       label: field[0].toUpperCase() + field.slice(1),
       className: classes.textField,
     });
-
+    function disabledDate(current) {
+      let customYear = selectedJournal.classYear.split('-')[0];
+      return current && (current < moment(customYear, 'YYYY') || current >= moment(parseInt(customYear)+1, 'YYYY'));
+  }
     const pickerEditorProps = field => ({
       // keyboard: true,
       value: displayAppointmentData[field],
@@ -172,8 +199,9 @@ const AppointmentFormComponent = ({
         field: [field], changes: date ? date.toDate() : new Date(displayAppointmentData[field]),
       }),
       ampm: false,
-      inputFormat: 'DD/MM/YYYY HH:mm',
+      inputFormat: 'YYYY-MM-DD',
       onError: () => null,
+      shouldDisableDate:disabledDate
     });
     const startDatePickerProps = pickerEditorProps('startDate');
     const endDatePickerProps = pickerEditorProps('endDate');
@@ -182,6 +210,7 @@ const AppointmentFormComponent = ({
       visibleChange();
       cancelAppointment();
     };
+
     
     return (
       <AppointmentForm.Overlay
@@ -206,14 +235,14 @@ const AppointmentFormComponent = ({
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DateTimePicker
+                <DatePicker
                   label="Start Date"
                   renderInput={
                     props => <TextField className={classes.picker} {...props} />
                   }
                   {...startDatePickerProps}
                 />
-                <DateTimePicker
+                <DatePicker
                   label="End Date"
                   renderInput={
                     props => <TextField className={classes.picker} {...props} />
@@ -232,6 +261,7 @@ const AppointmentFormComponent = ({
             </div>
           </div>
           <div className={classes.buttonGroup}>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
           {!isNewAppointment() && (
               <Button
                 type="secondary"
@@ -249,7 +279,6 @@ const AppointmentFormComponent = ({
             <Button
               type="primary"
               onClick={() => {
-                visibleChange();
                 applyChanges();
               }}
             >

@@ -333,7 +333,6 @@ const SchedularCalendar = ({
   const getCurrentDate = useCallback(()=>{
     const journal_classYear = selectedJournal.classYear.split('-')[0];
     let currentDate = new Date(`${journal_classYear}-${parseInt(selectedMonth)}-2`);
-    console.log(currentDate);
     return currentDate;
   },[selectedJournal,selectedMonth]);
   

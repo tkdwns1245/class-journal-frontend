@@ -31,15 +31,19 @@ const CalendarControllBox = ({
     onAddedAppointmentChange
 }) => {
     const today = new Date();
-    const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const currentDate = selectedJournal.classYear.split('-')[0]+'-'+(today.getMonth()+1)+'-'+today.getDate();
     const startDayHour = today.getHours();
-
+    function disabledDate(current) {
+        let customYear = selectedJournal.classYear.split('-')[0];
+        return current && (current < moment(customYear, 'YYYY') || current >= moment(parseInt(customYear)+1, 'YYYY'));
+    }
+    
     return(
             <CalendarControllBoxBlock>
                 <div className="inputWrapper">
                     <Space>
-                    <DashboardDatePicker picker="year" format="YYYY년" disabled value={moment(selectedJournal.createDate,"YYYY")}/>
-                    <DashboardDatePicker picker="month" format="M월" onChange={onChangeMonth} value={moment(selectedMonth,"M")}/>
+                    <DashboardDatePicker picker="year" format="YYYY년" disabled value={moment(selectedJournal.classYear,"YYYY")}/>
+                    <DashboardDatePicker picker="month" format="M월" onChange={onChangeMonth} disabledDate={disabledDate} defaultValue={moment(selectedJournal.classYear+"-"+selectedMonth,"YYYY-MM")}/>
                     </Space>
                 </div>
                 <div className="buttonWrapper">

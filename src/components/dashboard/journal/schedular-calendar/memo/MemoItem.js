@@ -51,8 +51,8 @@ const MemoItemBlock = styled.div`
         padding: 12px;
     }
 `;
-const DropdownMenu = ({memoItem}) =>{
-    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+const MemoItem = ({memoItem}) => { 
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
@@ -103,8 +103,8 @@ const DropdownMenu = ({memoItem}) =>{
         { 
             text: "정말로 삭제 하시겠습니까?",
             icon: 'warning', showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#1DA57A',
+            cancelButtonColor: '#885A40',
             confirmButtonText: '승인',
             cancelButtonText: '취소' 
         }
@@ -115,40 +115,37 @@ const DropdownMenu = ({memoItem}) =>{
             }
         })
     };
-
-
-return (
+  const menu = (
     <Menu >
-      <Menu.Item className="editButton" key="1" icon={<BiEdit size="15"/>} onClick={showModal}>
+      <Menu.Item className="editButton" key="1" icon={<BiEdit />} onClick={showModal}>
         수정
       </Menu.Item>
-      <Menu.Item className="cancelButton" key="2" icon={<MdDelete size="15"/>} onClick={onDeleteItem}>
+      <Menu.Item className="cancelButton" key="2" icon={<MdDelete />} onClick={onDeleteItem}>
         삭제
       </Menu.Item>
-      <EditMemoModal
-        form={form}
-        isModalVisible={isEditModalVisible}
-        handleCancel={handleCancel}
-        onChange={onChange}
-        onSubmit={onSubmit}
-        error={error}/>
     </Menu>
   )
-};
- 
-const MemoItem = ({memoItem}) => { 
   return ( 
         <MemoItemBlock size="small">
             <div className="memoHead">
                 <div className="titleArea">{memoItem.title}</div>
                 <div className="buttonArea">
+                <Space direction="vertical">
                     <Space wrap>
-                        <Dropdown overlay={<DropdownMenu memoItem={memoItem}/>}>
-                            <Button size="small">
+                        <Dropdown overlay={menu} placement="bottom" >
+                            <Button size="small" >
                                 <IoMdSettings />
                             </Button>
                         </Dropdown>
+                        <EditMemoModal
+                            form={form}
+                            isModalVisible={isEditModalVisible}
+                            handleCancel={handleCancel}
+                            onChange={onChange}
+                            onSubmit={onSubmit}
+                            error={error}/>
                     </Space>
+                </Space>
                 </div>
             </div>
             <div className="memoContent">

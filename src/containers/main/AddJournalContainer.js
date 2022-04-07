@@ -49,10 +49,27 @@ const AddJournalContainer = ({isModalVisible, setIsModalVisible}) => {
     const onSubmit = e => {
         e.preventDefault();
         const { schoolName,gradeNum,classroomNum,classYear,themeColor} = form;
-        if([schoolName,gradeNum,classroomNum,classYear,themeColor].includes('')) {
-            setError('빈 칸을 모두 입력하세요.');
+        if(schoolName === '') {
+            setError('학교명을 입력하세요.');
             return;
         }
+        if(gradeNum === ''){
+            setError('학년을 입력하세요.');
+            return;
+        }
+        if(classroomNum === ''){
+            setError('반 번호를 입력하세요.');
+            return;
+        }
+        if(classYear === ''){
+            setError('일지 년도를 입력하세요.');
+            return;
+        }
+        if(themeColor === ''){
+            setError('일지 테마색을 선택하세요.');
+            return;
+        }
+        setError(null);
         dispatch(journalRegister({schoolName,gradeNum,classroomNum,themeColor,classYear}));
         setIsModalVisible(false);
     };

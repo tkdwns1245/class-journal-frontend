@@ -29,8 +29,16 @@ const RegisterForm = () => {
     const onSubmit = e => {
         e.preventDefault();
         const { username, password, passwordConfirm} = form;
-        if([username, password, passwordConfirm].includes('')) {
-            setError('빈 칸을 모두 입력하세요.');
+        if(username === '') {
+            setError('아이디를 입력하세요');
+            return;
+        }
+        if(password === ''){
+            setError('패스워드를 입력하세요');
+            return;
+        }
+        if(passwordConfirm === ''){
+            setError('패스워드 확인을 입력하세요');
             return;
         }
         if(password !== passwordConfirm) {
@@ -39,6 +47,7 @@ const RegisterForm = () => {
             dispatch(changeField({ form: 'register', key: 'passwordConfirm', value: ''}));
             return;
         }
+        setError(null);
         dispatch(register({username,password}));
     };
 
@@ -57,8 +66,6 @@ const RegisterForm = () => {
         }
         
         if(auth) {
-            console.log('회원가입 성공');
-            console.log(auth);
             dispatch(check());
         }
     }, [auth, authError,dispatch]);
