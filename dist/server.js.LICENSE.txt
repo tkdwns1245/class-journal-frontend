@@ -5,12 +5,6 @@ object-assign
 */
 
 /*!
-  Copyright (c) 2018 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-
-/*!
  * accepts
  * Copyright(c) 2014 Jonathan Ong
  * Copyright(c) 2015 Douglas Christopher Wilson
@@ -229,22 +223,6 @@ object-assign
  */
 
 /*!
- * rrule.js - Library for working with recurrence rules for calendar dates.
- * https://github.com/jakubroztocil/rrule
- *
- * Copyright 2010, Jakub Roztocil and Lars Schoning
- * Licenced under the BSD licence.
- * https://github.com/jakubroztocil/rrule/blob/master/LICENCE
- *
- * Based on:
- * python-dateutil - Extensions to the standard Python datetime module.
- * Copyright (c) 2003-2011 - Gustavo Niemeyer <gustavo@niemeyer.net>
- * Copyright (c) 2012 - Tomi Pieviläinen <tomi.pievilainen@iki.fi>
- * https://github.com/jakubroztocil/rrule/blob/master/LICENCE
- *
- */
-
-/*!
  * send
  * Copyright(c) 2012 TJ Holowaychuk
  * Copyright(c) 2014-2016 Douglas Christopher Wilson
@@ -291,31 +269,6 @@ object-assign
  * MIT Licensed
  */
 
-/*!
-* rrule.js - Library for working with recurrence rules for calendar dates.
-* https://github.com/jakubroztocil/rrule
-*
-* Copyright 2010, Jakub Roztocil and Lars Schoning
-* Licenced under the BSD licence.
-* https://github.com/jakubroztocil/rrule/blob/master/LICENCE
-*
-*/
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
@@ -338,12 +291,6 @@ PERFORMANCE OF THIS SOFTWARE.
  * LICENSE.md file in the root directory of this source tree.
  *
  * @license MIT
- */
-
-/** @license MUI v5.4.4
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
  */
 
 /** @license React v0.20.2
@@ -392,15 +339,6 @@ PERFORMANCE OF THIS SOFTWARE.
  */
 
 /** @license React v17.0.2
- * react-jsx-runtime.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/** @license React v17.0.2
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -408,7 +346,3 @@ PERFORMANCE OF THIS SOFTWARE.
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-//! moment.js
-
-//! moment.js locale configuration

@@ -81,13 +81,19 @@ module.exports = {
           },
           {
             test: cssModuleRegex,
-            loader: require.resolve("css-loader"),
-            options: {
-              modules: {
-                exportOnlyLocals: true,
+            use: [
+              {
+                loader: require.resolve("css-loader"),
+                options: {
+                  modules: {
+                    exportOnlyLocals: true,
+                  },
+                },
+              },{
+                loader: require.resolve('style-loader'),
               },
-              getLocalIdent: getCSSModuleLocalIdent,
-            },
+              require.resolve("sass-loader"),
+            ],
           },
           {
             test: sassRegex,
@@ -100,6 +106,8 @@ module.exports = {
                     exportOnlyLocals: true,
                   },
                 },
+              },{
+                loader: require.resolve('style-loader'),
               },
               require.resolve("sass-loader"),
             ],
@@ -110,7 +118,7 @@ module.exports = {
             options: {
               emitFile: false,
               limit: 10000,
-              name: "static/media/[name].[hash:8].[ext]",
+              name: "static/media/[name].[hash:20].[ext]",
             },
           },
           {
@@ -186,6 +194,5 @@ module.exports = {
       ]),
     ],
   },
-  externals: [nodeExternals()],
   plugins: [new webpack.DefinePlugin(env.stringified)],
 };
