@@ -19,7 +19,7 @@ const MemoListContainer = () => {
 
     useEffect(() => {
         dispatch(listMemos({journal_id:selectedJournal._id,selectedMonth}));
-    }, [dispatch]);
+    }, [dispatch,selectedMonth,selectedJournal]);
     
 
     return (

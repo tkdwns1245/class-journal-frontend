@@ -29,6 +29,15 @@ const LoginForm = () => {
     const onSubmit = e => {
         e.preventDefault();
         const {username, password} = form;
+        if(username === '') {
+            setError('아이디를 입력하세요');
+            return;
+        }
+        if(password === ''){
+            setError('패스워드를 입력하세요');
+            return;
+        }
+        setError(null);
         dispatch(login({username,password}));
     };
 
@@ -52,12 +61,13 @@ const LoginForm = () => {
     useEffect(() => {
         if(user) {
             navigate('/');
+            try{
+                localStorage.setItem('user',JSON.stringify(user));
+            } catch(e) {
+                console.log('localStorage is not working');
+            }
         }
-        try{
-            localStorage.setItem('user',JSON.stringify(user));
-        } catch(e) {
-            console.log('localStorage is not working');
-        }
+        
     },[user,navigate]);
 
     return (

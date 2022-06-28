@@ -23,12 +23,12 @@ const ButtonWrapper = styled.div`
     align-items: center;
     justify-content: flex-end;
   .ant-btn-primary {
-    background: ${commonColor.journalDarkGreen};
+    background: ${props => props.theme.textColor};
     border: none;
-    box-shadow: 7px 7px 10px ${commonColor.journalDarkGreen};
+    box-shadow: 7px 7px 10px ${props => props.theme.textColor};
   }
   .journal-add-text{
-      color:${commonColor.journalDarkGreen};
+      color:${props => props.theme.textColor};
       margin-right:15px;
       font-size:15px;
   }

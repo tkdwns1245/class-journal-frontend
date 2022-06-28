@@ -11,10 +11,10 @@ import createSagaMiddleware from "redux-saga";
 import { createLogger } from "redux-logger";
 import rootReducer, { rootSaga } from "./modules";
 import { loadableReady } from "@loadable/component";
-import reactDom from "react-dom";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {tempSetUser, check} from './modules/user';
 import {selectJournal} from './modules/journal';
+import {ThemeProvider} from './lib/ThemeProvider';
 
 const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger('default');
@@ -43,6 +43,7 @@ function loadUser() {
     console.log('localStorage is not working');
   }
 }
+
 function loadJournal() {
   try{
     const journalItem = localStorage.getItem('journal');
@@ -57,12 +58,15 @@ function loadJournal() {
 sagaMiddleware.run(rootSaga);
 loadUser();
 loadJournal();
+
 const Root = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>
   );
 };
@@ -71,7 +75,7 @@ const root = document.getElementById("root");
 
 if (process.env.NODE_ENV === "production") {
   loadableReady(() => {
-    ReactDOM.hydrate(<Root />, root);
+    ReactDOM.render(<Root />, root);
   });
 } else {
   ReactDOM.render(<Root />, root);

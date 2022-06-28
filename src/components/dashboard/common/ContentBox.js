@@ -10,9 +10,10 @@ const ContentBoxBlock = styled.div`
     height: 100%;
     border-radius:10px;
     padding:2rem;
-    background-color: ${commonColor.journalLightGreen};
+    background-color: ${props => props.theme.lightBgColor};
 `;
 const ContentBox = ({children}) => {
+    
     return(
         <ContentBoxBlock>
             {children}

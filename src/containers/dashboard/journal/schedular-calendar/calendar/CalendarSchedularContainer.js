@@ -16,6 +16,7 @@ const CalendarSchedularContainer = () => {
     const [addedAppointment, setAddedAppointment] = useState(null);
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
     const {appointments} = useSelector(({appointment}) => ({
         appointments: appointment.appointments,
     }));
@@ -64,6 +65,7 @@ const CalendarSchedularContainer = () => {
               return;
           }
           const appointment = added;
+          setError(null);
           dispatch(appointmentRegister({appointment,selectedJournal,selectedMonth}));
           setIsEditModalVisible(false);
         }

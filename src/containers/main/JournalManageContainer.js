@@ -4,10 +4,12 @@ import {changeField, initializeForm, register,selectJournal, listJournals} from 
 import { check } from '../../modules/user';
 import JournalManageBox from '../../components/main/JournalManageBox';
 import {Navigate,useNavigate} from 'react-router-dom';
+import {useTheme} from '../../lib/ThemeProvider';
 
 const JournalManageContainer = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [error, setError] = useState(null);
+    const [ThemeMode,changeTheme] = useTheme();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -90,6 +92,7 @@ const JournalManageContainer = () => {
     };
     
     const onSelectJournal = useCallback(({journalItem}) =>{
+        changeTheme(journalItem.themeColor);
         navigate('/dashBoard/journal-calendar');
         try{
             localStorage.setItem('journalItem',journalItem);
@@ -111,22 +114,24 @@ const JournalManageContainer = () => {
         
     }, [journals, journalError,dispatch]);
     useEffect(() => {
+        if(journals) return;
+        console.log("dispatch listJournals");
         dispatch(listJournals());
-    }, [dispatch]);
+    }, [dispatch,journals]);
     return (
-        <JournalManageBox
-            form={form}
-            visible={isModalVisible}
-            onChange={onChange}
-            onCancel={handleCancel}
-            listJournalsLoading={listJournalsLoading}
-            registerLoading={registerLoading}
-            journals={journals}
-            onSelectJournal={onSelectJournal}
-            showModal={showModal}
-            error={error}
-            onSubmit={onSubmit}
-        />
+            <JournalManageBox
+                form={form}
+                visible={isModalVisible}
+                onChange={onChange}
+                onCancel={handleCancel}
+                listJournalsLoading={listJournalsLoading}
+                registerLoading={registerLoading}
+                journals={journals}
+                onSelectJournal={onSelectJournal}
+                showModal={showModal}
+                error={error}
+                onSubmit={onSubmit}
+            />
     )
 }
 

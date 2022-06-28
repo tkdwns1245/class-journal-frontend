@@ -9,7 +9,7 @@ const CommonBoardTemplateBlock = styled.div`
     height:auto;
     min-height:90%;
     margin-top:3rem;
-    background:${commonColor.journalGreen};
+    background:${props => props.theme.bgColor};
     border-radius:20px;
     box-shadow: 7px 7px 10px ${palette.gray[4]};
     display: flex;

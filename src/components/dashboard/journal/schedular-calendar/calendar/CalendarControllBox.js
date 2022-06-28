@@ -43,7 +43,7 @@ const CalendarControllBox = ({
                 <div className="inputWrapper">
                     <Space>
                     <DashboardDatePicker picker="year" format="YYYY년" disabled value={moment(selectedJournal.classYear,"YYYY")}/>
-                    <DashboardDatePicker picker="month" format="M월" onChange={onChangeMonth} disabledDate={disabledDate} defaultValue={moment(selectedJournal.classYear+"-"+selectedMonth,"YYYY-MM")}/>
+                    <DashboardDatePicker picker="month" format="M월" onChange={onChangeMonth} disabledDate={disabledDate} value={moment(selectedJournal.classYear.split('-')[0]+"-"+selectedMonth,"YYYY-MM")}/>
                     </Space>
                 </div>
                 <div className="buttonWrapper">

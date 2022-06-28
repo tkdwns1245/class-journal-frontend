@@ -10,14 +10,14 @@ const MemoListBoxBlock = styled.div`
     display:flex;
     align-items: center;
     justify-content: center;
-    background-color: ${commonColor.journalGreen};
+    background-color: ${props => props.theme.lightBgColor};
     
 `
 const MemoScrollBox = styled(Scrollbars)`
     height:100% !important;
     width: 100% !important;
     & > div{
-        background:#F7FEF6;
+        background:${props => props.theme.lightBgColor};
         display:flex;
         align-items: center;
         flex-direction: column;

@@ -4,6 +4,9 @@ import Swal from "sweetalert2";
 const client = axios.create();
 const onError = (error) => {
     let errorMessage;
+    if(error.response.status === 500){
+        errorMessage = '내부 서버 에러가 발생하였습니다. 관리자에게 문의하세요.'
+    }
     if(error.response.data.Message == undefined){
         errorMessage = error.response.data;
     }else{
