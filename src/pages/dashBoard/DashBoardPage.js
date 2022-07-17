@@ -14,9 +14,7 @@ const DashBoardPage = () => {
       <CommonTemplateContainer>
           <CommonBoardTemplateContainer>
               <SideMenu/>
-              <ContentBox>
-                <Outlet/>
-              </ContentBox>
+              <Outlet/>
           </CommonBoardTemplateContainer>
           <Spacer/>
       </CommonTemplateContainer>

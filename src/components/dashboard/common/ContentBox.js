@@ -11,6 +11,7 @@ const ContentBoxBlock = styled.div`
     border-radius:10px;
     padding:2rem;
     background-color: ${props => props.theme.lightBgColor};
+    display:flex;
 `;
 const ContentBox = ({children}) => {
     
