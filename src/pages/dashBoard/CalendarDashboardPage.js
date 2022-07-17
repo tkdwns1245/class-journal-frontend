@@ -4,11 +4,11 @@ import SchedularCalendarBox from '../../components/dashboard/journal/schedular-c
 import MemoControllerContainer from '../../containers/dashboard/journal/schedular-calendar/memo/MemoControllerContainer';
 import MemoListContainer from '../../containers/dashboard/journal/schedular-calendar/memo/MemoListContainer';
 import CalendarSchedularContainer from '../../containers/dashboard/journal/schedular-calendar/calendar/CalendarSchedularContainer';
-import ContentBox from '../../components/dashboard/common/ContentBox.js';
+
 const CalendarDashboardPage = () => {
     
   return (
-      <ContentBox>
+      <SchedularCalendarBox>
         <CalendarBox>
             <CalendarSchedularContainer/>
         </CalendarBox>
@@ -16,7 +16,7 @@ const CalendarDashboardPage = () => {
             <MemoControllerContainer/>
             <MemoListContainer/>
         </MemoBox>
-      </ContentBox>
+      </SchedularCalendarBox>
   );
 };
 
