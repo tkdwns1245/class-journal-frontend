@@ -15,6 +15,7 @@ const LoginPage = loadable(() => import('./pages/auth/LoginPage'));
 const RegisterPage = loadable(() => import('./pages/auth/RegisterPage'));
 const DashBoardPage = loadable(() => import('./pages/dashBoard/DashBoardPage'));
 const CalendarDashboardPage = loadable(() => import('./pages/dashBoard/CalendarDashboardPage'))
+const DailyJournalPage = loadable(() => import('./pages/dashBoard/DailyJournalPage'));
 const RedPage = loadable(() => import("./pages/RedPage"));
 
 
@@ -34,6 +35,7 @@ function App() {
                                     <DashBoardPage />
                                   </ProtectedRoute>} >
           <Route path="journal-calendar" element={<CalendarDashboardPage/>} />
+          <Route path="daily-journal" element={<DailyJournalPage/>} />
           <Route path="evaluation" element={<EvaluationContainer/>} />
         </Route>
       </Routes>

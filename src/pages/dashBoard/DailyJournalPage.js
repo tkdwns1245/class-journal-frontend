@@ -1,16 +1,13 @@
-import MemoBox from '../../components/dashboard/journal/schedular-calendar/memo/MemoBox';
-import CalendarBox from '../../components/dashboard/journal/schedular-calendar/calendar/CalendarBox';
-import SchedularCalendarBox from '../../components/dashboard/journal/schedular-calendar/SchedularCalendarBox';
-import MemoControllerContainer from '../../containers/dashboard/journal/schedular-calendar/memo/MemoControllerContainer';
-import MemoListContainer from '../../containers/dashboard/journal/schedular-calendar/memo/MemoListContainer';
-import CalendarSchedularContainer from '../../containers/dashboard/journal/schedular-calendar/calendar/CalendarSchedularContainer';
-const CalendarDashboardPage = () => {
+import React from "react";
+import ContentBox from '../../components/dashboard/common/ContentBox.js';
+
+const DailyJournalPage = () => {
     
   return (
-      <SchedularCalendarBox>
-      </SchedularCalendarBox>
+      <ContentBox>
+      </ContentBox>
   );
 };
 
-export default CalendarDashboardPage;
+export default DailyJournalPage;
 

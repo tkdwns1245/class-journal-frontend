@@ -6,6 +6,7 @@ import * as journalAPI from '../lib/api/journal';
 const CHANGE_FIELD = 'journal/CHANGE_FIELD';
 const SELECT_JOURNAL = 'journal/SELECT_JOURNAL';
 const SELECT_MONTH = 'journal/SELECT_MONTH';
+const SELECT_DATE = 'journal/SELECT_DATE';
 const INITIALIZE_FORM = 'journal/INITIALIZE_FORM';
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] = createRequestActionTypes('journal/REGISTER');
@@ -35,6 +36,13 @@ export const selectMonth = createAction(
     SELECT_MONTH,
     ({selectMonth}) => ({
         selectMonth
+    }),
+);
+
+export const selectDate = createAction(
+    SELECT_DATE,
+    ({selectDate}) => ({
+        selectDate
     }),
 );
 
@@ -118,6 +126,7 @@ const initialState = {
     },
     selectedJournal: null,
     selectedMonth: null,
+    selectedDate: null,
     journals: null,
     journalError : null,
     memos: null,
@@ -137,6 +146,10 @@ const auth = handleActions(
     [SELECT_MONTH]: (state, { payload: {selectMonth}}) =>
     produce(state, draft => {
         draft['selectedMonth'] = selectMonth;
+    }),
+    [SELECT_DATE]: (state, { payload: {selectDate}}) =>
+    produce(state, draft => {
+        draft['selectedDate'] = selectDate;
     }),
     [INITIALIZE_FORM] : (state, {payload: {form,type,values}}) => 
     produce(state, draft => {

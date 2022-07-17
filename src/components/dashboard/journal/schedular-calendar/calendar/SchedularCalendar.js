@@ -22,8 +22,9 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import AppointmentFormComponent from './AppointmentFormComponent';
-import {useSelector} from 'react-redux';
-
+import {Navigate,useNavigate} from 'react-router-dom';
+import {selectDate} from '../../../../../modules/journal.js';
+import {useDispatch, useSelector} from 'react-redux';
 
 const PREFIX = 'Demo';
 const owners = [
@@ -205,6 +206,18 @@ const CellBase = React.memo(({
   const formatOptions = isFirstMonthDay
     ? { day: 'numeric', month: 'long' }
     : { day: 'numeric' };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const onSelectDate = useCallback((selectedDate) =>{
+      const formatDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}`;
+      navigate('/dashBoard/daily-journal');
+      try{
+          localStorage.setItem('selectedDate',formatDate);
+      } catch(e) {
+          console.log('localStorage is not working');
+      }
+      dispatch(selectDate({selectDate : formatDate}));
+  },[dispatch,navigate]);
   return (
     <StyledTableCell
       tabIndex={0}
@@ -215,6 +228,7 @@ const CellBase = React.memo(({
         // [classes.cloudBack]: iconId === 2,
         [classes.opacity]: otherMonth,
       })}
+      onClick={() =>onSelectDate(startDate)}
     >
       <StyledDivContent className={classes.content}>
         {/* <WeatherIcon classes={classes} id={iconId} /> */}
@@ -222,6 +236,7 @@ const CellBase = React.memo(({
       <StyledDivText className={classes.text}>
         {formatDate(startDate, formatOptions)}
       </StyledDivText>
+      
     </StyledTableCell>
   );
 });
