@@ -1,3 +1,4 @@
+import React,{useEffect} from 'react';
 import { redTheme,greenTheme,blueTheme} from '../theme/theme';
 import { createContext, useState, useContext, useCallback} from 'react';
 import {ThemeProvider as StyledProvider} from 'styled-components';
@@ -6,6 +7,14 @@ import { base, deepMerge } from 'grommet-icons';
 const ThemeContext = createContext({});
 const ThemeProvider = ({children}) => {
     const [ThemeMode, setThemeMode] = useState('journalGreen');
+    const selectedJournal = JSON.parse(localStorage.getItem('journalItem'));
+    useEffect(() => {
+        if(selectedJournal !== undefined){
+            setThemeMode(selectedJournal.themeColor);
+        }
+    }, [selectedJournal]);
+    
+    console.log(selectedJournal);
     const themeObject = (function(){
         if(ThemeMode === 'journalRed'){
             return redTheme;

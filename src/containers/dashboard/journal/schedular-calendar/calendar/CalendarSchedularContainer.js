@@ -5,7 +5,6 @@ import CalendarControllBox from '../../../../../components/dashboard/journal/sch
 import AppointmentFormComponent from '../../../../../components/dashboard/journal/schedular-calendar/calendar/AppointmentFormComponent.js';
 import SchedularBox from '../../../../../components/dashboard/journal/schedular-calendar/calendar/SchedularBox.js';
 import {selectMonth} from '../../../../../modules/journal.js';
-import {selectDate} from '../../../../../modules/journal.js';
 import {appointmentRegister,appointmentUpdate,appointmentDelete,listAppointments} from '../../../../../modules/appointment';
 import Swal from "sweetalert2";
 

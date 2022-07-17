@@ -95,7 +95,7 @@ const JournalManageContainer = () => {
         changeTheme(journalItem.themeColor);
         navigate('/dashBoard/journal-calendar');
         try{
-            localStorage.setItem('journalItem',journalItem);
+            localStorage.setItem('journalItem',JSON.stringify(journalItem));
         } catch(e) {
             console.log('localStorage is not working');
         }

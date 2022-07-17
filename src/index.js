@@ -46,10 +46,10 @@ function loadUser() {
 
 function loadJournal() {
   try{
-    const journalItem = localStorage.getItem('journal');
+    const journalItem = JSON.parse(localStorage.getItem('journalItem'));
     if(!journalItem) return;
 
-    store.dispatch(selectJournal(journalItem));
+    store.dispatch(selectJournal({journalItem}));
   }catch(e) {
     console.log('journal is not in localStorage');
   }

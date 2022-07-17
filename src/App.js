@@ -44,12 +44,11 @@ function App() {
 }
 
 const ProtectedRoute = ({ children }) => {
-  const {selectedJournal,user} = useSelector(({journal,user}) => ({
+  let {selectedJournal,user} = useSelector(({journal,user}) => ({
       selectedJournal: journal.selectedJournal,
       selectedMonth: journal.selectedMonth,
       user:user.user
   }));
-
   const location = useLocation();
   if(!user) {
     if (typeof window !== 'undefined') { alert('로그인 이후 사용해주세요') }
