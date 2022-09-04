@@ -5,7 +5,7 @@ import palette from "../../lib/styles/palette";
 
 const CommonBoardTemplateBlock = styled.div`
     position: relative;
-    width:85%;
+    width:1600px;
     height:auto;
     min-height:90%;
     margin-top:3rem;

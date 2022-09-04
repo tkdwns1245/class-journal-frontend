@@ -5,9 +5,9 @@ const DailyJournalBottomBoxWarpperBlock = styled.div`
     position: relative;
     display:flex;
     justify-content: row;
+    margin-top:25px;
     width: 100%;
     height: 100%;
-    padding: 20px;
 `;
 
 const DailyJournalBottomBoxWarpper = ({children}) => {
