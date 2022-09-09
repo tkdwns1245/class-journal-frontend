@@ -1,33 +1,80 @@
 import React from "react";
-import DateControllBox from "../../components/dashboard/journal/daily-journal/date-controll/DateControllBox.js";
-import DailyJournalBoxWrapper from "../../components/dashboard/journal/daily-journal/DailyJournalBoxWrapper.js";
-import DailyJournalMiddleBoxWrapper from "../../components/dashboard/journal/daily-journal/DailyJournalMiddleBoxWrapper.js";
-import DailyJournalBottomBoxWarpper from "../../components/dashboard/journal/daily-journal/DailyJournalBottomBoxWarpper.js";
-import DailyJournalControllBoxWrapper from "../../components/dashboard/journal/daily-journal/DailyJournalControllBoxWrapper.js";
+import styled from 'styled-components';
+import Button from "../../components/common/Button.js";
+import DateControllContainer from "../../containers/dashboard/daily-journal/date-controll/DateControllContainer.js";
 import JournalTableBox from "../../components/dashboard/journal/daily-journal/journal-table/JournalTableBox.js";
 import ClassActivityBox from "../../components/dashboard/journal/daily-journal/class-activity/ClassActivityBox.js";
 import DailyTodoBox from "../../components/dashboard/journal/daily-journal/daily-todo/DailyTodoBox.js";
+import { deepMerge } from 'grommet-icons';
+const BottomContentBoxWrapper = styled.div`
+    position: relative;
+    display:flex;
+    justify-content: start;
+    margin-top:25px;
+    width: 100%;
+    height: auto;
+`;
+const TopContentBoxWrapper = styled.div`
+  position: relative;
+  display:flex;
+  justify-content: row;
+  width: 100%;
+  height: auto;
+`
+const DailyJournalContentBoxWrapper = styled.div`
+  width: 100%;
+  height: auto;
+`
+
+const DailyJournalFooterBoxWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  display:flex;
+  justify-content:end;
+  padding-top:20px;
+`
+const DailyJournalControllBoxWrapper = styled.div`
+    position: relative;
+    display:flex;
+    justify-content: start;
+    width: 100%;
+    height: auto;
+`;
+
+const DailyJournalBoxWrapper = styled.div`
+    position: relative;
+    display:flex;
+    flex-direction:column;
+    width: 100%;
+    height: auto;
+`;
 
 const DailyJournalPage = () => {
     
   return (
       <DailyJournalBoxWrapper>
         <DailyJournalControllBoxWrapper>
-          <DateControllBox/>
+          <DateControllContainer/>
         </DailyJournalControllBoxWrapper>
-        <DailyJournalMiddleBoxWrapper>
-          <JournalTableBox>
-          </JournalTableBox>
-          <ClassActivityBox>
-          </ClassActivityBox>
-        </DailyJournalMiddleBoxWrapper>
-        <DailyJournalBottomBoxWarpper>
-          <DailyTodoBox>
-          </DailyTodoBox>
-        </DailyJournalBottomBoxWarpper>
+        <DailyJournalContentBoxWrapper>
+          <TopContentBoxWrapper>
+            <JournalTableBox>
+            </JournalTableBox>
+            <ClassActivityBox>
+            </ClassActivityBox>
+          </TopContentBoxWrapper>
+          <BottomContentBoxWrapper>
+            <DailyTodoBox>
+            </DailyTodoBox>
+          </BottomContentBoxWrapper>
+        </DailyJournalContentBoxWrapper>
+        <DailyJournalFooterBoxWrapper>
+            <Button to='/dashBoard/journal-calendar'>
+              뒤로가기
+            </Button>
+        </DailyJournalFooterBoxWrapper>
       </DailyJournalBoxWrapper>
   );
 };
 
 export default DailyJournalPage;
-

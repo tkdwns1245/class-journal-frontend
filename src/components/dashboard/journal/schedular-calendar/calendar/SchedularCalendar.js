@@ -23,7 +23,7 @@ import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import AppointmentFormComponent from './AppointmentFormComponent';
 import {Navigate,useNavigate} from 'react-router-dom';
-import {selectDate} from '../../../../../modules/journal.js';
+import {selectDay} from '../../../../../modules/journal.js';
 import {useDispatch, useSelector} from 'react-redux';
 
 const PREFIX = 'Demo';
@@ -208,15 +208,15 @@ const CellBase = React.memo(({
     : { day: 'numeric' };
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onSelectDate = useCallback((selectedDate) =>{
-      const formatDate = `${selectedDate.getMonth() + 1}/${selectedDate.getDate()}`;
+  const onSelectDay = useCallback((selectedDate) =>{
+      const formatDay = `${selectedDate.getDate()}`;
       navigate('/dashBoard/daily-journal');
       try{
-          localStorage.setItem('selectedDate',formatDate);
+          localStorage.setItem('selectedDay',formatDay);
       } catch(e) {
           console.log('localStorage is not working');
       }
-      dispatch(selectDate({selectDate : formatDate}));
+      dispatch(selectDay({selectDay : formatDay}));
   },[dispatch,navigate]);
   return (
     <StyledTableCell
@@ -228,7 +228,7 @@ const CellBase = React.memo(({
         // [classes.cloudBack]: iconId === 2,
         [classes.opacity]: otherMonth,
       })}
-      onClick={() =>onSelectDate(startDate)}
+      onClick={() =>onSelectDay(startDate)}
     >
       <StyledDivContent className={classes.content}>
         {/* <WeatherIcon classes={classes} id={iconId} /> */}

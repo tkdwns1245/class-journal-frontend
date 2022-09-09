@@ -24,26 +24,28 @@ const DateControllBoxBlock = styled.div`
 
 const DateControllBox = ({
     // onChangeMonth,
-    // selectedJournal,
-    // selectedMonth,
-    // selectedDate
+    selectedJournal,
+    selectedMonth,
+    selectedDay,
+    onChangeMonth,
+    onChangeDay
 }) => {
-    // function disabledDate(current) {
-    //     let customYear = selectedJournal.classYear.split('-')[0];
-    //     return current && (current < moment(customYear, 'YYYY') || current >= moment(parseInt(customYear)+1, 'YYYY'));
-    // }
+    function disabledDate(current) {
+        let customYear = selectedJournal.classYear.split('-')[0];
+        return current && (current < moment(customYear, 'YYYY') || current >= moment(parseInt(customYear)+1, 'YYYY'));
+    }
 
-    // const selectYear = moment(selectedJournal.classYear,"YYYY");
-    // const selectMonth = moment(selectedJournal.classYear.split('-')[0]+"-"+selectedMonth,"YYYY-MM");
-    // const selectDate = moment(selectedJournal.classYear.split('-')[0]+"-"+selectedMonth+selectedDate,"YYYY-MM-DD");
+    const selectYear = moment(selectedJournal.classYear,"YYYY");
+    const selectMonth = moment(selectedJournal.classYear.split('-')[0]+"-"+selectedMonth,"YYYY-MM");
+    const selectDay = moment(selectedJournal.classYear.split('-')[0]+"-"+selectedMonth+"-"+selectedDay,"YYYY-MM-DD");
     
     return(
             <DateControllBoxBlock>
                 <div className="inputWrapper">
                     <Space>
-                    <DashboardDatePicker picker="year" format="YYYY년" /*disabled value={}*//>
-                    <DashboardDatePicker picker="month" format="M월" /*onChange={onChangeMonth} disabledDate={disabledDate} value={}*//>
-                    <DashboardDatePicker picker="day" format="D일" /*onChange={onChangeMonth} disabledDate={disabledDate} value={}*//>
+                    <DashboardDatePicker picker="year" format="YYYY년" disabled value={selectYear}/>
+                    <DashboardDatePicker picker="month" format="M월" onChange={onChangeMonth} disabledDate={disabledDate} value={selectMonth}/>
+                    <DashboardDatePicker picker="day" format="D일" onChange={onChangeDay} disabledDate={disabledDate} value={selectDay}/>
                     </Space>
                 </div>
             </DateControllBoxBlock>
