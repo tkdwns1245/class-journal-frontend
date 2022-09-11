@@ -108,6 +108,15 @@ const initialState = {
             createDate:'',
             memoMonth: '',
             journal: '',
+        },
+        activity : {
+            type: '',
+            period: '',
+            content: '',
+            createDate: '',
+            journal: '',
+            selectedMonth: '',
+            selectedDay: '',
         }
     },
     edit : {
@@ -131,6 +140,8 @@ const initialState = {
     journalError : null,
     memos: null,
     memoError : null,
+    activities:null,
+    activityError:null,
 };
 
 const auth = handleActions(
@@ -161,6 +172,8 @@ const auth = handleActions(
             draft['journalError'] = null;
         else if(type == 'memo'){
             draft['memoError'] = null;
+        }else if(type == 'actvity'){
+            draft['activityError'] = null;
         }
     }),
     [REGISTER_SUCCESS] : (state, { payload: journals}) => 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from "../../components/common/Button.js";
 import DateControllContainer from "../../containers/dashboard/daily-journal/date-controll/DateControllContainer.js";
 import JournalTableBox from "../../components/dashboard/journal/daily-journal/journal-table/JournalTableBox.js";
-import ClassActivityBox from "../../components/dashboard/journal/daily-journal/class-activity/ClassActivityBox.js";
+import ClassActivityContainer from "../../containers/dashboard/daily-journal/class-activity/ClassActivityContainer.js";
 import DailyTodoBox from "../../components/dashboard/journal/daily-journal/daily-todo/DailyTodoBox.js";
 import { deepMerge } from 'grommet-icons';
 const BottomContentBoxWrapper = styled.div`
@@ -60,8 +60,8 @@ const DailyJournalPage = () => {
           <TopContentBoxWrapper>
             <JournalTableBox>
             </JournalTableBox>
-            <ClassActivityBox>
-            </ClassActivityBox>
+            <ClassActivityContainer>
+            </ClassActivityContainer>
           </TopContentBoxWrapper>
           <BottomContentBoxWrapper>
             <DailyTodoBox>

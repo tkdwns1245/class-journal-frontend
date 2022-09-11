@@ -6,7 +6,15 @@ const TableSheet = styled.table`
     background-color:white;
     border:none;
     border-radius: 10px;
+    border-collapse:collapse;
+    border-style:hidden;
     box-shadow: 3px 3px 10px ${props => props.theme.bgColor};
+    td {
+      border: 1px solid lightgrey;
+    };
+    th {
+        border: 1px solid lightgrey;
+    }
 `;
 
 const Table = ({columns, data, style}) =>{

@@ -1,31 +1,12 @@
-import React from "react";
+import React from 'react';
 import styled,{css} from "styled-components";
 import palette from "../../lib/styles/palette";
-import {useNavigate} from 'react-router-dom';
-import {commonColor} from '../../lib/styles/commonColor.js'
+import {Link} from 'react-router-dom';
+import {commonColor} from '../../lib/styles/commonColor.js';
 
-const StyledButton = styled.button`
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 0.25rem 1rem;
-    color: white;
-    outline: none;
-    cursor: pointer;
-
-    background: ${palette.gray[8]};
-    &:hover {
-        background: ${palette.gray[6]};
-    }
-    ${props =>
-        props.fullWidth &&
-        css`
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-            width: 100%;
-            font-size: 1.125rem;
-        `}
+const TableButtonCellBlock = styled.div`
+    width:100%;
+    height:100%;
 
     ${props =>
         props.color &&
@@ -52,19 +33,11 @@ const StyledButton = styled.button`
             }
         `}
 `;
+const TableButtonCell = (props) => {
+    
+    return(
+        <TableButtonCellBlock onClick={props.onClick} {...props}>{props.value.content}</TableButtonCellBlock>
+    )
+}
 
-
-const Button = (props) => {
-    const navigate = useNavigate();
-    const onClick = e =>{  
-        if(props.to) {
-            navigate(props.to);
-        }
-        if(props.onClick) {
-            return props.onClick(e);
-        }
-    };
-    return <StyledButton {...props} onClick={onClick}></StyledButton>;
-};
-
-export default Button;
+export default TableButtonCell;
